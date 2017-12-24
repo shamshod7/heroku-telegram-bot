@@ -249,11 +249,15 @@ def info(message):
             chats+=1
         elif id>0:
             peoples+=1
+        elif id==0:
+            pass
       for id in writed:
         if id<0:
             chats+=1
         elif id>0:
             peoples+=1
+        elif id==0:
+            pass
       bot.send_message(441399484, 'Людей: '+str(peoples)+"\n"+'Групп: '+str(chats))
       x=0
       while x<len(people):
