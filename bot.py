@@ -259,11 +259,11 @@ def info(message):
         elif id==0:
             pass
       bot.send_message(441399484, 'Людей: '+str(peoples)+"\n"+'Групп: '+str(chats))
-      x=0
-      while x<len(people):
-            if people[x] not in writed:
-              bot.send_message(441399484, people[x])
-              x+=1
+     # x=0
+     # while x<len(people):
+           # if people[x] not in writed:
+             # bot.send_message(441399484, people[x])
+           #   x+=1
 
    
 @bot.message_handler(commands=['ti_ctochlen'])
