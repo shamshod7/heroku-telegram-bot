@@ -241,9 +241,9 @@ def startms(message):
 
 @bot.message_handler(commands=['info'])
 def info(message):
-    chats=0
-    peoples=0
     if message.from_user.id==441399484:
+      chats=0
+      peoples=0
       for id in people:
         if id<0:
             chats+=1
