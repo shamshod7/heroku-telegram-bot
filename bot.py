@@ -16,7 +16,6 @@ iduser=db.ids_people
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
-people=[]
 writed=[
 ]
 massive=['Хер','хер','Член','член','Хуй','хуй']
@@ -47,9 +46,15 @@ def startms(message):
 @bot.message_handler(commands=['info'])
 def info(message):
     if message.from_user.id==441399484:
+        group=0
+        people=0
         x=idgroup.find({})
+        for element in x:
+            group+=1
         y=iduser.find({})
-        bot.send_message(message.from_user.id, 'Группы: '+str(len(x))+'\n'+'Люди: '+str(len(y)))
+        for element in y:
+            people+=1
+        bot.send_message(message.from_user.id, 'Группы: '+str(len(group))+'\n'+'Люди: '+str(len(people)))
         
 
 
