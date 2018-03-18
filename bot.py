@@ -27,9 +27,15 @@ def sendmes(message):
         x=idgroup.find({})
         y=iduser.find({})
         for one in x:
-            bot.send_message(one['id'], message.text)
+            try:
+              bot.send_message(one['id'], message.text)
+            except:
+                pass
         for one in y:
-            bot.send_message(one['id'], message.text)
+            try:
+              bot.send_message(one['id'], message.text)
+            except:
+                pass
 
 
 
@@ -54,7 +60,7 @@ def info(message):
         y=iduser.find({})
         for element in y:
             people+=1
-        bot.send_message(message.from_user.id, 'Группы: '+str(len(group))+'\n'+'Люди: '+str(len(people)))
+        bot.send_message(message.from_user.id, 'Группы: '+str(group)+'\n'+'Люди: '+str(people))
         
 
 
