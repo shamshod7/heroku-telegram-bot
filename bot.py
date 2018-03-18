@@ -5,6 +5,14 @@ import time
 import chlenomerconfig
 import telebot
 import random
+from pymongo import MongoClient
+
+client=MongoClient('mongodb://egor5q:123@db-shard-00-00-fej0s.mongodb.net:27017,db-shard-00-01-fej0s.mongodb.net:27017,db-shard-00-02-fej0s.mongodb.net:27017/test?ssl=true&replicaSet=DB-shard-0&authSource=admin')
+db=client.chlenomer
+idgroup=db.ids
+iduser=db.ids_people
+
+
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
@@ -17,17 +25,13 @@ massive=['Хер','хер','Член','член','Хуй','хуй']
 @bot.message_handler(commands=['sendm'])
 def sendmes(message):
     if message.from_user.id==441399484:
-        for id in people:
-          try:
-            bot.send_message(id, message.text)
-          except:
-            pass
-        for id in writed:
-            if id not in people:
-                try:
-                   bot.send_message(id, message.text)
-                except:
-                    pass
+        x=idgroup.find({})
+        y=iduser.find({})
+        for one in x:
+            bot.send_message(one['id'], message.text)
+        for one in y:
+            bot.send_message(one['id'], message.text)
+
 
 
 @bot.message_handler(commands=['channel'])
@@ -43,28 +47,11 @@ def startms(message):
 @bot.message_handler(commands=['info'])
 def info(message):
     if message.from_user.id==441399484:
-      chats=0
-      peoples=0
-      for id in people:
-        if id<0:
-            chats+=1
-        elif id>0:
-            peoples+=1
-        elif id==0:
-            pass
-      for id in writed:
-        if id<0:
-            chats+=1
-        elif id>0:
-            peoples+=1
-        elif id==0:
-            pass
-      bot.send_message(441399484, 'Людей: '+str(peoples)+"\n"+'Групп: '+str(chats))
-      x=0
-      while x<len(people):
-            if people[x] not in writed:
-              bot.send_message(441399484, people[x])
-            x+=1
+        x=idgroup.find({})
+        y=iduser.find({})
+        bot.send_message(message.from_user.id, 'Группы: '+str(len(x))+'\n'+'Люди: '+str(len(y)))
+        
+
 
    
 @bot.message_handler(commands=['ti_ctochlen'])
@@ -109,10 +96,13 @@ texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... �
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
-    if message.from_user.id not in people:
-        people.append(message.from_user.id)
-    if message.chat.id not in people:
-        people.append(message.chat.id)
+    if message.chat.id<0:
+      if idgroup.find_one({'id':message.chat.id}) is None:
+        idgroup.insert_one({'id':message.chat.id})
+    elif message.chat.id>0:
+        if iduser.find_one({'id':message.from_user.id}) is None:
+            iduser.insert_one({'id':message.from_user.id})
+
     
     if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower():
         print(message.chat.id)
