@@ -27,14 +27,15 @@ def sendmes(message):
     if message.from_user.id==441399484:
         x=idgroup.find({})
         y=iduser.find({})
+        tex=message.text.split('/sendm')
         for one in x:
             try:
-              bot.send_message(one['id'], message.text)
+              bot.send_message(one['id'], tex[1])
             except:
                 pass
         for one in y:
             try:
-              bot.send_message(one['id'], message.text)
+              bot.send_message(one['id'], tex[1])
             except:
                 pass
 
