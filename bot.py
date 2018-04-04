@@ -41,7 +41,7 @@ def sendmes(message):
 
 
 @bot.message_handler(commands=['elita']) 
-def elita(m):
+def elit(m):
     if m.from_user.id in elita:
         Kb = types.ReplyKeyboardMarkup()
         kb.add(types.KeyboardButton("Член"))
