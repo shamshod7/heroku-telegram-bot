@@ -20,7 +20,7 @@ bot = telebot.TeleBot(token)
 writed=[
 ]
 massive=['Хер','хер','Член','член','Хуй','хуй']
-
+elita=[441399484, 55888804, 314238081]
 
 @bot.message_handler(commands=['sendm'])
 def sendmes(message):
@@ -40,6 +40,18 @@ def sendmes(message):
                 pass
 
 
+@bot.message_handler(commands=['elita']) 
+def elita(m):
+    if m.from_user.id in elita:
+        Kb = types.ReplyKeyboardMarkup()
+        kb.add(types.KeyboardButton("Член"))
+        kb.add(types.KeyboardButton("Хер"))
+        bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=kb)
+    
+    
+            
+            
+            
 @bot.message_handler(commands=['mysize'])
 def size(m):
     x=iduser.find_one({'id':m.from_user.id})
