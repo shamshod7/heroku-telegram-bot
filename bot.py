@@ -45,9 +45,9 @@ def sendmes(message):
 def elit(m):
     if m.from_user.id in elita:
         Kb = types.ReplyKeyboardMarkup()
-        kb.add(types.KeyboardButton("Член"))
-        kb.add(types.KeyboardButton("Хер"))
-        bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=kb)
+        Kb.add(types.KeyboardButton("Член"))
+        Kb.add(types.KeyboardButton("Хер"))
+        bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
             
