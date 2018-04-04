@@ -149,7 +149,7 @@ def chlenomer(message):
         else:
             replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
             bot.send_message(message.chat.id, replytext)
-            otvet=chlen+mm/100
+            otvet=chlen+mm/10
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
         if mega==1:
