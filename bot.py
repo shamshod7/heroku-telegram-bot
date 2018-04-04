@@ -98,7 +98,7 @@ def commessage(message):
 @bot.message_handler(commands=['feedback'])
 def feedback(message):
     if message.from_user.username!=None:
-      bot.send_message(314238081, message.text+"\n"+message.from_user.username)
+      bot.send_message(314238081, message.text+"\n"+'@'+message.from_user.username)
       bot.send_message(message.chat.id, 'Сообщение отправлено!')
 
 
