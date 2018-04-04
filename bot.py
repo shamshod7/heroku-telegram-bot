@@ -39,13 +39,21 @@ def sendmes(message):
                 pass
 
 
-@bot.message_handler(commands=['update'])
-def up(m):
-    if m.from_user.id==441399484:
-        try:
-            iduser.update_many({}, {'$set':{'summ':0, 'kolvo':0}})
-        except:
-            pass
+@bot.message_handler(commands=['mysize'])
+def size(m):
+    x=iduser.find_one({'id':m.from_user.id})
+    try:
+        sredn=x['summ']/x['kolvo']
+    except:
+        sredn=0
+    bot.send_message(m.from_user.id, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз!') 
+                    
+                                                                                                                                         
+                                                                                                                                         
+                                                                                                                                         
+                                                                                                                                         
+                                                                 
+                                                                  
                         
          
 @bot.message_handler(commands=['channel'])
@@ -100,9 +108,7 @@ def chlen2(message):
         if randomvoice>95:
               chlen = random.randint(1, 9)
               text=texts[chlen-1]
-               
-      
-            
+           
               bot.send_message(message.chat.id, 'Размер члена ' + message.from_user.first_name + ': ' + text)
 
         else:
@@ -141,6 +147,10 @@ def chlenomer(message):
         else:
             replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
             bot.send_message(message.chat.id, replytext)
+            x=iduser.find_one({'id':message.from_user.id})
+            otvet=chlen+mm/100
+            iduser.update_one({x}, {'$inc':{'kolvo':1}})
+            iduser.update_one({x}, {'$inc':{'summ':otvet}})
         if mega==1:
             text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...'
             t=1
