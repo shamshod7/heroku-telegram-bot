@@ -47,7 +47,7 @@ def size(m):
         sredn=x['summ']/x['kolvo']
     except:
         sredn=0
-    bot.send_message(m.from_user.id, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!') 
+    bot.send_message(m.chat.id, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!') 
                     
                                                                                                                                          
                                                                                                                                          
