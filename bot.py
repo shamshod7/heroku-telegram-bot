@@ -147,10 +147,9 @@ def chlenomer(message):
         else:
             replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
             bot.send_message(message.chat.id, replytext)
-            x=iduser.find_one({'id':message.from_user.id})
             otvet=chlen+mm/100
-            iduser.update_one({x}, {'$inc':{'kolvo':1}})
-            iduser.update_one({x}, {'$inc':{'summ':otvet}})
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
         if mega==1:
             text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...'
             t=1
