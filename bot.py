@@ -39,7 +39,15 @@ def sendmes(message):
                 pass
 
 
-
+@bot.message_handler(commands=['update'])
+def up(m):
+    if m.from_user.id==441399484:
+        try:
+            iduser.update_many({}, {'$set':{'summ':0, 'kolvo':0}})
+        excep:
+            pass
+                        
+         
 @bot.message_handler(commands=['channel'])
 def channel(message):
     bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
