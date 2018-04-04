@@ -5,6 +5,7 @@ import time
 import chlenomerconfig
 import telebot
 import random
+from telebot import types
 from pymongo import MongoClient
 
 client1=os.environ['database']
