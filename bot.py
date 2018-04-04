@@ -66,6 +66,8 @@ def size(m):
         bot.send_message(441399484, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!')
     except:
         pass
+    
+    
                                                                                                                                          
                                                                                                                                          
                                                                                                                                          
@@ -129,7 +131,7 @@ def chlenomer(message):
         idgroup.insert_one({'id':message.chat.id})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0})
 
     
     if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower():
