@@ -45,6 +45,7 @@ def size(m):
     x=iduser.find_one({'id':m.from_user.id})
     try:
         sredn=x['summ']/x['kolvo']
+        sredn=round(sredn, 1)
     except:
         sredn=0
     bot.send_message(m.chat.id, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!') 
