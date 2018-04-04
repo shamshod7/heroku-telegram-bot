@@ -104,22 +104,6 @@ def feedback(message):
       bot.send_message(message.chat.id, 'Сообщение отправлено!')
 
 
-@bot.message_handler(commands=['chlen'])
-def chlen2(message):
-        print(message.chat.id)
-        chlen=random.randint(1,100)
-        mm=random.randint(0,9)
-        randomvoice=random.randint(1,100)
-        if randomvoice>95:
-              chlen = random.randint(1, 9)
-              text=texts[chlen-1]
-           
-              bot.send_message(message.chat.id, 'Размер члена ' + message.from_user.first_name + ': ' + text)
-
-        else:
-            replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
-            bot.send_message(message.chat.id, replytext)
-
 texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
       'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
        'Член в астрале', 'Прислоните член к экрану, я не вижу'
