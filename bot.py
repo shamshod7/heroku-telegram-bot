@@ -137,7 +137,7 @@ def chlenomer(message):
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0})
 
     
-    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower():
+    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower():
         print(message.chat.id)
         mega=random.randint(1,100)
         ultramega=random.randint(1,1000)
