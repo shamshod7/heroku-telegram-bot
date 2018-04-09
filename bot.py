@@ -78,8 +78,8 @@ def size(m):
 @bot.message_handler(commands=['me'])
 def mme(m):
     x=iduser.find_one({'id': m.from_user.id})
-    bot.send_message(m.chat.id, 'Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')
-    bot.send_message(441399484, 'Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
+    bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')
+    bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
                                                                                                                                          
                                                                                                                                          
                                                                  
