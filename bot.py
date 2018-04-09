@@ -78,10 +78,12 @@ def size(m):
 @bot.message_handler(commands=['me'])
 def mme(m):
     x=iduser.find_one({'id': m.from_user.id})
-    bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')
-    bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
-                                                                                                                                         
-                                                                                                                                         
+    try:
+     bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')
+     bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
+    except:
+        bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное вы ни рару не измеряли член! (напишите боту "член")')
+        bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное вы ни рару не измеряли член!')                                                                                                                               
                                                                  
                                                                   
                         
