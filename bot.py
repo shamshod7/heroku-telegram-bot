@@ -50,13 +50,13 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-@bot.message_handler(commands=['update'])
-def upd(m):
-  if m.from_user.id==441399484:
-    try:
-        iduser.update_many({}, {'$set':{'chlenocoins':0}})
-    except:
-        pass
+#@bot.message_handler(commands=['update'])
+#def upd(m):
+#  if m.from_user.id==441399484:
+#    try:
+#        iduser.update_many({}, {'$set':{'chlenocoins':0}})
+#    except:
+#        pass
             
             
 @bot.message_handler(commands=['mysize'])
@@ -78,7 +78,7 @@ def size(m):
 @bot.message_handler(commands=['me'])
 def mme(m):
     x=iduser.find_one({'id': m.from_user.id})
-    bot.send_message(m.chat.id, 'Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будующем они понадобятся')
+    bot.send_message(m.chat.id, 'Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')
                                                                                                                                          
                                                                                                                                          
                                                                                                                                          
