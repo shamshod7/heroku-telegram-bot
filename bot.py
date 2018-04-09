@@ -50,7 +50,13 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-            
+@bot.message_handler(commands=['update'])
+def upd(m):
+  if m.from_user.id==441399484:
+    try:
+        iduser.update_many({}, {'$set':{'chlenocoins':0}})
+    except:
+        pass
             
             
 @bot.message_handler(commands=['mysize'])
@@ -69,7 +75,10 @@ def size(m):
                         
     
     
-                                                                                                                                         
+@bot.message_handler(commands=['me'])
+def mme(m):
+    x=iduser.find_one({'id': m.from_user.id})
+    bot.send_message(m.chat.id, 'Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будующем они понадобятся')
                                                                                                                                          
                                                                                                                                          
                                                                                                                                          
@@ -131,10 +140,10 @@ def chlenomer(message):
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one({'id':message.chat.id})
       if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0})
 
     
     if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower():
@@ -158,7 +167,8 @@ def chlenomer(message):
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
         if mega==1:
-            text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':1}})
+            text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...\nК тому же, вы получили 1 членокоин! Смотрите /me для проверки.'
             t=1
         if ultramega==1:
             text='Вы нашли СУПЕР-СЕКРЕТНОЕ сообщение, шанс которого равен 0,1%!'+"\n"+'А ведь есть БОЛЕЕ секретные сообщения...'
