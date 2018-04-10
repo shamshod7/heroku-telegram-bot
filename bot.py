@@ -14,7 +14,8 @@ db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
 
-
+ch=[]
+members=[]
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
@@ -86,8 +87,26 @@ def mme(m):
         bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное, вы ни рару не измеряли член!')                                                                                                                               
                                                                  
                                                                   
-                        
-         
+@bot.message_handler(commands=['challenge'])
+def challenge(m):
+    if m.from_user.id==441399484:
+      if len(ch)<1:
+        bot.send_message(m.chat.id, 'Конкурс за приз - кнопки внутри членомера - начинается! Жмите /joen для присоединения!')
+        ch.append(m.chat.id)
+                
+                
+
+@bot.message_handler(commands=['joen'])
+def joen(m):
+    if m.chat.id in ch and m.from_user.id not in members:
+        if m.chat.id==ch[0]:
+            members.append(m.from_user.id)
+            
+            
+@bot.message_handler(commands==['begin'])
+def begin(m):
+    
+                
 @bot.message_handler(commands=['channel'])
 def channel(message):
     bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
