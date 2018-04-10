@@ -103,7 +103,7 @@ def joen(m):
             members.append(m.from_user.id)
             
             
-@bot.message_handler(commands==['begin'])
+@bot.message_handler(commands=['begin'])
 def begin(m):
     pass
                 
