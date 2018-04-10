@@ -105,7 +105,7 @@ def joen(m):
             
 @bot.message_handler(commands==['begin'])
 def begin(m):
-    
+    pass
                 
 @bot.message_handler(commands=['channel'])
 def channel(message):
