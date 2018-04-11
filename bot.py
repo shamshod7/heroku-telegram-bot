@@ -307,10 +307,7 @@ def chlenomer(message):
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
-                     
-    try:
-                     
-
+                                          
     
     if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower():
         print(message.chat.id)
