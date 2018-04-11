@@ -53,13 +53,13 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-@bot.message_handler(commands=['update'])
-def upd(m):
-  if m.from_user.id==441399484:
-    try:
-        iduser.update_many({}, {'$set':{'pet':None}})
-    except:
-        pass
+#@bot.message_handler(commands=['update'])
+#def upd(m):
+#  if m.from_user.id==441399484:
+#    try:
+#        iduser.update_many({}, {'$set':{'pet':None}})
+#    except:
+#        pass
             
             
 @bot.message_handler(commands=['mysize'])
