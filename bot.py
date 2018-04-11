@@ -145,7 +145,7 @@ def name(m):
     player=iduser.find_one({'id':m.from_user.id})
     if player!=None:
         x=m.text.split('/name ')
-        if len(x)==1:
+        if len(x)==2:
             if len(x[1])<=40:
                 try:
                     iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
