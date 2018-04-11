@@ -367,6 +367,7 @@ def creategame(id1, id2):
                     'attack':0,
                     'defence':0
                      }
+            }
             
             
             
