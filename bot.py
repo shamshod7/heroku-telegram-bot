@@ -144,11 +144,12 @@ def ticto(message):
 def name(m):
     player=iduser.find_one({'id':m.from_user.id})
     if player!=None:
-        x=m.text.split('/name')
-        if len(x)==2:
+        x=m.text.split('/name ')
+        if len(x)==1:
             if len(x[1])<=40:
                 try:
                     iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
+                    bot.send_message(m.from_user.id, 'Вы успешно переименовали питомца!')
                 except:
                     bot.send_message(m.from_user.id, 'У вас нет питомца!')          
             else:
