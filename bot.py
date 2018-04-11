@@ -216,6 +216,7 @@ def gofight(id1, id2, name1, name2):
     
     
 def xod(id1, id2, name1, name2, player1, player2):
+    game=creategame(id1, id2)
     if player1['pet']['skill']==None:
         skill1='Отсутствует'
     else:
@@ -241,9 +242,8 @@ def xod(id1, id2, name1, name2, player1, player2):
                      '🔺Скилл: '+skill2       
                     )
     
-    
     bot.send_message(id1, 'Теперь отправьте количество атаки (числом), которое хотите поставить в этом ходу.')
-    
+    bot.send_message(id2, 'Теперь отправьте количество атаки (числом), которое хотите поставить в этом ходу.')
     
     
     
@@ -355,7 +355,21 @@ def chlenomer(message):
             t=0
         
 
-        
+ 
+def creategame(id1, id2):
+            return{
+                'id1':{'id':id1,
+                       'attack':0,
+                       'defence':0
+                      }
+                'id2':{
+                    'id':id2,
+                    'attack':0,
+                    'defence':0
+                     }
+            
+            
+            
 def petcreate():
     return{
         'name':None,
