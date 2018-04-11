@@ -14,6 +14,8 @@ db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
 
+
+wait=[]
 ch=[]
 members=[]
 
@@ -52,12 +54,12 @@ def elit(m):
     
     
 #@bot.message_handler(commands=['update'])
-#def upd(m):
-#  if m.from_user.id==441399484:
-#    try:
-#        iduser.update_many({}, {'$set':{'chlenocoins':0}})
-#    except:
-#        pass
+def upd(m):
+  if m.from_user.id==441399484:
+    try:
+        iduser.update_many({}, {'$set':{'pet':None}})
+    except:
+        pass
             
             
 @bot.message_handler(commands=['mysize'])
@@ -137,8 +139,147 @@ def info(message):
 def ticto(message):
     bot.send_message(message.from_user.id, 'Умеет менять размер члинуса')
                      
+        
+@bot.message_handler(commands=['name'])
+def name(m):
+    player=iduser.find_one({'id':m.from_user.id})
+    if player!=None:
+        x=m.text.split('/name')
+        if len(x)==2:
+            if len(x[1])<=40:
+                try:
+                    iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
+                except:
+                    bot.send_message(m.from_user.id, 'У вас нет питомца!')          
+            else:
+                bot.send_message(m.from_user.id, 'Длина имени не должна превышать 40 символов!')
+        else:
+            bot.send_message(m.from_user.id, 'Неверный формат! Пишите в таком формате:\n'+'/name *имя*, где *имя* - имя вашего питомца.', parse_mode='markdown')
+    else:
+        bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
+            
+        
+        
+        
 
+@bot.message_handler(commands=['fight'])
+def fight(m):
+    if m.chat.id>0:
+      z=iduser.find_one({'id':m.from_user.id})
+      if z!=None:
+        if z['pet']!=None:
+          if z['pet']['name']!=None:
+            t=threading.Timer(300, noplayers, args=[m.from_user.id])
+            t.start()
+            bot.send_message(m.chat.id, 'Вы встали в очередь на поединок питомцев! Ожидайте игроков...')
+            wait.append(m.from_user.id)
+            player=iduser.find_one({'id':m.from_user.id})
+            for id in wait:
+                if id!=m.from_user.id:
+                    x=iduser.find_one({'id':id})
+                    if x['pet']['level']==player['pet']['level']: 
+                        name1=player['pet']['name']
+                        name2=x['pet']['name']
+                        wait.remove(player['id'])
+                        wait.remove(x['id'])
+                        gofight(player[id], x['id'], name1, name2)
+          else:
+            bot.send_message(m.from_user.id, 'Сначала дайте питомцу имя! (команда /name)') 
+      else:
+        bot.send_message(m.from_user.id, 'Сначала напишите боту "член"!')
+    else:
+       bot.send_message(m.from_user.id, 'Эту команду можно использовать только в личных сообщениях бота!') 
+                
 
+@bot.message_handler(commands=['cancel'])
+def cancel(m):
+    try:
+        wait.remove(m.from_user.id)
+        bot.send_message(m.from_user.id, 'Вы  были успешно удалены из очереди.') 
+    except:
+        pass
+    
+    
+    
+
+def gofight(id1, id2, name1, name2):
+    player1=iduser.find_one({'id':id1})
+    player2=iduser.find_one({'id':id2})
+    bot.send_message(id1, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name2+'"'+'! Его уровень: '+str(player2['pet']['level']))
+    bot.send_message(id2, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name1+'"'+'! Его уровень: '+str(player1['pet']['level']))
+    xod(id1, id2, name1, name2, player1, player2)
+    
+    
+    
+def xod(id1, id2, name1, name2, player1, player2):
+    if player1['pet']['skill']==None:
+        skill1='Отсутствует'
+    else:
+        skill1=player1['pet']['skill']
+        
+    if player2['pet']['skill']==None:
+        skill2='Отсутствует'
+    else:
+        skill2=player2['pet']['skill']
+    bot.send_message(id1, 'Информация о вашем питомце:\n'+'❤️ХП: '+str(player1['pet']['hp'])+
+                     '\n⚔️Атака: '+str(player1['pet']['attack'])+'/'+str(player1['pet']['maxattack'])+'\n'+
+                     '⚡️Реген атаки: '+str(player1['pet']['regenattack'])+'\n'+
+                    '🛡Защита: '+str(player1['pet']['defence'])+'/'+str(player1['pet']['maxdefence'])+'\n'+
+                     '🔵Реген защиты: '+str(player1['pet']['regendefence'])+'\n'+
+                     '🔺Скилл: '+skill1       
+                    )
+    
+    bot.send_message(id2, 'Информация о вашем питомце:\n'+'❤️ХП: '+str(player2['pet']['hp'])+
+                     '\n⚔️Атака: '+str(player2['pet']['attack'])+'/'+str(player2['pet']['maxattack'])+'\n'+
+                     '⚡️Реген атаки: '+str(player2['pet']['regenattack'])+'\n'+
+                    '🛡Защита: '+str(player2['pet']['defence'])+'/'+str(player2['pet']['maxdefence'])+'\n'+
+                     '🔵Реген защиты: '+str(player2['pet']['regendefence'])+'\n'+
+                     '🔺Скилл: '+skill2       
+                    )
+    
+    
+    bot.send_message(id1, 'Теперь отправьте количество атаки (числом), которое хотите поставить в этом ходу.')
+    
+    
+    
+    
+def noplayers(id):
+    try:
+        wait.remove(id)
+        bot.send_message(id, 'Вы ожидали оппонента 5 минут и были удалены из очереди! Попробуйте позже, когда будут ещё бойцы.')
+    except:
+        pass
+        
+@bot.message_handler(commands=['buypet'])
+def buypet(m):
+    x=iduser.find_one({'id':m.from_user.id})
+    if x!=None:
+      if x['pet']==None:
+        if x['chlenocoins']>=25:
+            iduser.update_one({'id':m.from_user.id}, {'$set':{'pet':petcreate}})
+            iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-25}})
+            bot.send_message(m.chat.id, 'Поздравляю, вы купили питомца! Подробнее об этом в /pethelp.')
+        else:
+            bot.send_message(m.chat.id, 'Не хватает членокоинов! (нужно 25)')
+      else:
+        bot.send_message(m.chat.id, 'У вас уже есть питомец!')
+    else:
+        bot.send_message(m.chat.id, 'Сначала напишите боту "член" хотя бы раз!')
+        
+
+        
+        
+@bot.message_handler(commands=['pethelp'])
+def pethelp(m):
+    bot.send_message(m.chat.id, 'Питомец вам нужен для участия в боях. Чтобы поучаствовать, нужно написать боту в личные сообщения команду /fight.\n'+
+                     'У питомца есть ХП, Атака, Защита, Регенерация атаки, Регенерация защиты.'+
+                     'Каждый ход вы выбираете, сколько атаки и сколько защиты поставить на раунд. Каждая поставленная единица защиты заблокирует единицу атаки соперника.\n'+
+                     'Таким образом, если вы ставите 2 атаки и 3 брони, а ваш соперник - 3 атаки и 1 броню, то вы получите 0 урона, а он получит 1 урон.\n'+
+                     'Прокачка питомца сейчас недоступна, но в будущем появится!
+                             
+                             
+                             
+                             
 @bot.message_handler(commands=['commands'])
 def commessage(message):
     bot.send_message(message.chat.id, 'Все фразы, связанные со словом "член"')
@@ -161,10 +302,13 @@ def chlenomer(message):
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one({'id':message.chat.id})
       if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
+                     
+    try:
+                     
 
     
     if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower():
@@ -210,7 +354,21 @@ def chlenomer(message):
         
 
         
-
+def petcreate(id):
+    return{
+        'name':None,
+        'level':1,
+        'maxattack':2,
+        'maxdefence':2,
+        'attack':0,
+        'defence':0,
+        'hp':5,
+        'regenattack':1,
+        'regendefence':1,
+        'skill':None,
+        'exp':0,
+        'wons':0
+    }
     
     
 
