@@ -361,7 +361,7 @@ def creategame(id1, id2):
                 'id1':{'id':id1,
                        'attack':0,
                        'defence':0
-                      }
+                      },
                 'id2':{
                     'id':id2,
                     'attack':0,
