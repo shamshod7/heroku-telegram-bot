@@ -58,9 +58,9 @@ def elit(m):
 @bot.message_handler(commands=['update'])
 def upd(m):
   if m.from_user.id==441399484:
-    try:
         x=iduser.find_many({})
         for z in x: 
+          try:
             if x[z]['pet']!=None:
                 iduser.update_one({'id':x[z]['id']}, {'$set':{'pet':{'name':None,
         'level':1,
@@ -75,8 +75,8 @@ def upd(m):
         'exp':0,
         'wons':0}}})
                 print('yes')
-    except:
-        pass
+          except:
+            pass
             
             
 @bot.message_handler(commands=['mysize'])
