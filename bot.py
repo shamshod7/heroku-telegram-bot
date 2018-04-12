@@ -19,6 +19,7 @@ iduser=db.ids_people
 wait=[]
 ch=[]
 members=[]
+play=[]
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
@@ -54,13 +55,27 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-#@bot.message_handler(commands=['update'])
-#def upd(m):
-#  if m.from_user.id==441399484:
-#    try:
-#        iduser.update_many({}, {'$set':{'pet':None}})
-#    except:
-#        pass
+@bot.message_handler(commands=['update'])
+def upd(m):
+  if m.from_user.id==441399484:
+    try:
+        x=iduser.find_many({})
+        for z in x: 
+            if x[z]['pet']!=None:
+                iduser.update_one({'id':x[z]['id']}, {'$set':{'pet':{'name':None,
+        'level':1,
+        'maxattack':4,
+        'maxdefence':4,
+        'attack':0,
+        'defence':0,
+        'hp':10,
+        'regenattack':1,
+        'regendefence':1,
+        'skill':None,
+        'exp':0,
+        'wons':0}}})
+    except:
+        pass
             
             
 @bot.message_handler(commands=['mysize'])
@@ -204,11 +219,26 @@ def cancel(m):
         pass
     
     
-    
+@bot.callback_query_handler(func=lambda call:True)
+def inline(call):
+    if call.data=='atk+1':
+        if call.from_user.id in play:
+            pass
+
+
+
+
+
 
 def gofight(id1, id2, name1, name2):
     player1=iduser.find_one({'id':id1})
     player2=iduser.find_one({'id':id2})
+    play.append(id1)
+    play.append(id2)
+    player1['pet']['attack']=player1['pet']['maxattack']
+    player1['pet']['defence']=player1['pet']['maxdefence']
+    player2['pet']['attack']=player2['pet']['maxattack']
+    player2['pet']['defence']=player2['pet']['maxdefence']
     bot.send_message(id1, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name2+'"'+'! Его уровень: '+str(player2['pet']['level']))
     bot.send_message(id2, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name1+'"'+'! Его уровень: '+str(player1['pet']['level']))
     xod(id1, id2, name1, name2, player1, player2)
@@ -241,9 +271,13 @@ def xod(id1, id2, name1, name2, player1, player2):
                      '🔵Реген защиты: '+str(player2['pet']['regendefence'])+'\n'+
                      '🔺Скилл: '+skill2       
                     )
-    
-    bot.send_message(id1, 'Теперь отправьте количество атаки (числом), которое хотите поставить в этом ходу.')
-    bot.send_message(id2, 'Теперь отправьте количество атаки (числом), которое хотите поставить в этом ходу.')
+    Keyboard=types.InlineKeyboardMarkup()
+    Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
+    Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
+    Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='atk+5'))
+    Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='atk+10'))
+    bot.send_message(id1, 'Теперь отправьте количество атаки, которое хотите поставить в этом ходу.', reply_markup='Keyboard')
+    bot.send_message(id2, 'Теперь отправьте количество атаки, которое хотите поставить в этом ходу.')
     
     
     
@@ -360,12 +394,16 @@ def creategame(id1, id2):
             return{
                 'id1':{'id':id1,
                        'attack':0,
-                       'defence':0
+                       'defence':0,
+                       'attackround':0,
+                       'defenceround':0
                       },
                 'id2':{
                     'id':id2,
                     'attack':0,
-                    'defence':0
+                    'defence':0,
+                    'attackround':0,
+                    'defenceround':0
                      }
             }
             
@@ -375,11 +413,11 @@ def petcreate():
     return{
         'name':None,
         'level':1,
-        'maxattack':2,
-        'maxdefence':2,
+        'maxattack':4,
+        'maxdefence':4,
         'attack':0,
         'defence':0,
-        'hp':5,
+        'hp':10,
         'regenattack':1,
         'regendefence':1,
         'skill':None,
