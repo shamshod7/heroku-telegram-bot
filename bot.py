@@ -313,9 +313,13 @@ def xod(id1, id2, name1, name2, player1, player2):
                      '🔺Скилл: '+skill2       
                     )
     for ids in play:
-            if ids['id1']['id']==user:
+            if ids['id1']['id']==id1:
                 ids['id1']['attackselect']=1
-            if ids['id2']['id']==user:
+            if ids['id2']['id']==id1:
+                ids['id2']['attackselect']=1
+            if ids['id1']['id']==id2:
+                ids['id1']['attackselect']=1
+            if ids['id2']['id']==id2:
                 ids['id2']['attackselect']=1
     Keyboard=types.InlineKeyboardMarkup()
     Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
