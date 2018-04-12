@@ -384,7 +384,7 @@ texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... �
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
-  if m.from_user.id not in ban:
+  if message.from_user.id not in ban:
     if message.chat.id<0:
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one({'id':message.chat.id})
