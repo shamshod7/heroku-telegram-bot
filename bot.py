@@ -82,7 +82,7 @@ def upd(m):
         'skill':None,
         'exp':0,
         'wons':0}}})
-                print('yes')
+            print('yes')
           except:
             pass
             
