@@ -55,26 +55,26 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-@bot.message_handler(commands=['update'])
-def upd(m):
-  if m.from_user.id==441399484:
-         try:
-            iduser.update_many({'pet':{'$ne':None}}, {'$set':{'pet':{'name':None,
-        'level':1,
-        'maxattack':4,
-        'maxdefence':4,
-        'attack':0,
-        'defence':0,
-        'hp':10,
-        'regenattack':1,
-        'regendefence':1,
-        'skill':None,
-        'exp':0,
-        'wons':0}}}
-                                )
-            print('yes')
-         except:
-            pass
+#@bot.message_handler(commands=['update'])
+#def upd(m):
+#  if m.from_user.id==441399484:
+#         try:
+#            iduser.update_many({'pet':{'$ne':None}}, {'$set':{'pet':{'name':None,
+#        'level':1,
+#        'maxattack':4,
+#        'maxdefence':4,
+#        'attack':0,
+#        'defence':0,
+#        'hp':10,
+#        'regenattack':1,
+#        'regendefence':1,
+#        'skill':None,
+#        'exp':0,
+#        'wons':0}}}
+#                                )
+#            print('yes')
+#         except:
+#            pass
             
             
 @bot.message_handler(commands=['mysize'])
