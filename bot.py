@@ -15,6 +15,7 @@ db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
 
+ban=[]
 
 wait=[]
 ch=[]
@@ -198,7 +199,7 @@ def fight(m):
                         name2=x['pet']['name']
                         wait.remove(player['id'])
                         wait.remove(x['id'])
-                        gofight(player[id], x['id'], name1, name2)                
+                        gofight(player['id'], x['id'], name1, name2)                
           else:
             bot.send_message(m.from_user.id, 'Сначала дайте питомцу имя! (команда /name)') 
         else:
@@ -220,20 +221,62 @@ def cancel(m):
     
 @bot.callback_query_handler(func=lambda call:True)
 def inline(call):
+    ataka=0
+    user=call.from_user.id
     if call.data=='atk+1':
-        if call.from_user.id in play:
-            pass
+        ataka=1
+    elif call.data=='atk+2':
+        ataka=2
+    elif call.data=='atk+5':
+        ataka=5
+    elif call.data=='atk+10':
+        ataka=10
+    if ataka>0:
+        x=0
+        for ids in play:
+            if ids['id1']['id']==user:
+                x=1
+                y=ids['id1']
+            if ids['id2']['id']==user:
+                x=1
+                y=ids['id2']
+        if x==1:
+            if y['attackselect']==1:
+                if y['attack']>=1:
+                    y['attackround']+=1
+                    y['attack']-=1
+                    medit('Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(y['attackround']),
+                    call.from_user.id,
+                    call.message.message_id)
+                    
+    else:
+        if call.data=='endattack':
+          x=0
+          for ids in play:
+            if ids['id1']['id']==user:
+                x=1
+                y=ids['id1']
+            if ids['id2']['id']==user:
+                x=1
+                y=ids['id2']
+          if x==1:
+            if y['attackselect']==1:
+                y['attackselect']=0
+                bot.send_message(call.from_user.id, 'Теперьт выберите защиту.')
+                        
+                         
 
 
 
-
+def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdown'):
+    return bot.edit_message_text(chat_id=chat_id,message_id=message_id,text=message_text,reply_markup=reply_markup,
+                                 parse_mode=parse_mode)
 
 
 def gofight(id1, id2, name1, name2):
     player1=iduser.find_one({'id':id1})
     player2=iduser.find_one({'id':id2})
-    play.append(id1)
-    play.append(id2)
+    play.append(creategame(id1, id2, player1, player2))
     player1['pet']['attack']=player1['pet']['maxattack']
     player1['pet']['defence']=player1['pet']['maxdefence']
     player2['pet']['attack']=player2['pet']['maxattack']
@@ -245,7 +288,6 @@ def gofight(id1, id2, name1, name2):
     
     
 def xod(id1, id2, name1, name2, player1, player2):
-    game=creategame(id1, id2)
     if player1['pet']['skill']==None:
         skill1='Отсутствует'
     else:
@@ -270,13 +312,19 @@ def xod(id1, id2, name1, name2, player1, player2):
                      '🔵Реген защиты: '+str(player2['pet']['regendefence'])+'\n'+
                      '🔺Скилл: '+skill2       
                     )
+    for ids in play:
+            if ids['id1']['id']==user:
+                ids['id1']['attackselect']=1
+            if ids['id2']['id']==user:
+                ids['id2']['attackselect']=1
     Keyboard=types.InlineKeyboardMarkup()
     Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
     Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
     Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='atk+5'))
     Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='atk+10'))
-    bot.send_message(id1, 'Теперь отправьте количество атаки, которое хотите поставить в этом ходу.', reply_markup='Keyboard')
-    bot.send_message(id2, 'Теперь отправьте количество атаки, которое хотите поставить в этом ходу.')
+    Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='endattack'))
+    msg1=bot.send_message(id1, 'Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(player1['attackround']), reply_markup='Keyboard')  
+    msg2=bot.send_message(id2, 'Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(player2['attackround']), reply_markup='Keyboard')
     
     
     
@@ -336,6 +384,7 @@ texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... �
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+  if m.from_user.id not in ban:
     if message.chat.id<0:
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one({'id':message.chat.id})
@@ -389,9 +438,13 @@ def chlenomer(message):
         
 
  
-def creategame(id1, id2):
+def creategame(id1, id2, player1, player2):
             return{
                 'id1':{'id':id1,
+                       'attackselect':0,
+                       'defenceselect':0,
+                       'maxattack':player1['pet']['maxattack'],
+                       'maxdefence':player1['pet']['maxdefence'],
                        'attack':0,
                        'defence':0,
                        'attackround':0,
@@ -399,6 +452,10 @@ def creategame(id1, id2):
                       },
                 'id2':{
                     'id':id2,
+                    'attackselect':0,
+                    'defenceselect':0,
+                    'maxattack':player2['pet']['maxattack'],
+                    'maxdefence':player2['pet']['maxdefence'],
                     'attack':0,
                     'defence':0,
                     'attackround':0,
