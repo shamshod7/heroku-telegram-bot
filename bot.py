@@ -59,7 +59,7 @@ def elit(m):
 def upd(m):
   if m.from_user.id==441399484:
          try:
-            iduser.update_many({{'pet':{'$ne':None}}, {'$set':{'pet':{'name':None,
+            iduser.update_many({'pet':{'$ne':None}}, {'$set':{'pet':{'name':None,
         'level':1,
         'maxattack':4,
         'maxdefence':4,
@@ -70,7 +70,8 @@ def upd(m):
         'regendefence':1,
         'skill':None,
         'exp':0,
-        'wons':0}}})
+        'wons':0}}}
+                                )
             print('yes')
          except:
             pass
