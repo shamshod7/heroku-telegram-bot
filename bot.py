@@ -471,8 +471,8 @@ def creategame(id1, id2, player1, player2):
                     'defenceselect':0,
                     'maxattack':player2['pet']['maxattack'],
                     'maxdefence':player2['pet']['maxdefence'],
-                    'attack':0,
-                    'defence':0,
+                    'attack':player2['pet']['maxattack'],
+                    'defence':player2['pet']['maxdefence'],
                     'attackround':0,
                     'defenceround':0
                      }
