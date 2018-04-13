@@ -281,11 +281,11 @@ def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdow
 def gofight(id1, id2, name1, name2):
     player1=iduser.find_one({'id':id1})
     player2=iduser.find_one({'id':id2})
-    play.append(creategame(id1, id2, player1, player2))
     player1['pet']['attack']=player1['pet']['maxattack']
     player1['pet']['defence']=player1['pet']['maxdefence']
     player2['pet']['attack']=player2['pet']['maxattack']
     player2['pet']['defence']=player2['pet']['maxdefence']
+    play.append(creategame(id1, id2, player1, player2))
     bot.send_message(id1, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name2+'"'+'! Его уровень: '+str(player2['pet']['level']))
     bot.send_message(id2, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name1+'"'+'! Его уровень: '+str(player1['pet']['level']))
     xod(id1, id2, name1, name2, player1, player2)
