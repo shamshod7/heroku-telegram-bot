@@ -198,8 +198,14 @@ def fight(m):
                     if x['pet']['level']==player['pet']['level']: 
                         name1=player['pet']['name']
                         name2=x['pet']['name']
-                        wait.remove(player['id'])
-                        wait.remove(x['id'])
+                        try:
+                            wait.remove(player['id'])
+                        except:
+                            pass
+                        try:
+                            wait.remove(x['id'])
+                        except:
+                            pass
                         gofight(player['id'], x['id'], name1, name2)                
           else:
             bot.send_message(m.from_user.id, 'Сначала дайте питомцу имя! (команда /name)') 
