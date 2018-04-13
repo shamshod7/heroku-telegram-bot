@@ -297,7 +297,7 @@ def inline(call):
                     Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='def+5'))
                     Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='def+10'))
                     Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='enddefence'))
-                    medit('Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(y['defenceround']),
+                    medit('Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: '+str(y['defenceround']),
                     call.from_user.id,
                     call.message.message_id, reply_markup=Keyboard)
                 else:
@@ -318,13 +318,14 @@ def inline(call):
           if x==1:
             if y['attackselect']==1:
                 y['attackselect']=0
+                y['defenceselect']=1
                 Keyboard=types.InlineKeyboardMarkup()
                 Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='def+1'))
                 Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='def+2'))
                 Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='def+5'))
                 Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='def+10'))
                 Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='enddef'))
-                bot.send_message(call.from_user.id, 'Теперьт выберите защиту.', reply_markup=Keyboard)
+                bot.send_message(call.from_user.id, 'Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: 0', reply_markup=Keyboard)
                         
                          
 
