@@ -246,9 +246,15 @@ def inline(call):
                 if y['attack']>=1:
                     y['attackround']+=1
                     y['attack']-=1
+                    Keyboard=types.InlineKeyboardMarkup()
+                    Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
+                    Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
+                    Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='atk+5'))
+                    Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='atk+10'))
+                    Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='endattack'))
                     medit('Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(y['attackround']),
                     call.from_user.id,
-                    call.message.message_id)
+                    call.message.message_id, reply_markup=Keyboard)
                 else:
                     bot.send_message(user, 'У вас недостаточно атаки!')
             else:
