@@ -249,9 +249,9 @@ def inline(call):
                 y=ids['id2']
         if x==1:
             if y['attackselect']==1:
-                if y['attack']>=1:
-                    y['attackround']+=1
-                    y['attack']-=1
+                if y['attack']>=ataka:
+                    y['attackround']+=ataka
+                    y['attack']-=ataka
                     Keyboard=types.InlineKeyboardMarkup()
                     Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
                     Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
