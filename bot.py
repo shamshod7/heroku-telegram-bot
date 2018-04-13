@@ -325,7 +325,7 @@ def inline(call):
                 Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='def+5'))
                 Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='def+10'))
                 Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='enddef'))
-                medit(call.from_user.id, 'Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: 0', call.from_user.id, call.message.message_id, reply_markup=Keyboard)
+                medit('Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: 0', call.from_user.id, call.message.message_id, reply_markup=Keyboard)
                         
                          
 
