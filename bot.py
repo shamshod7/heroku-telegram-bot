@@ -249,6 +249,10 @@ def inline(call):
                     medit('Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(y['attackround']),
                     call.from_user.id,
                     call.message.message_id)
+                else:
+                    bot.send_message(user, 'У вас недостаточно атаки!')
+            else:
+                bot.send_message(user, 'Нет!')
                     
     else:
         if call.data=='endattack':
