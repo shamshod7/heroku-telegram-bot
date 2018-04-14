@@ -403,7 +403,7 @@ def xod(id1, id2, name1, name2, player1, player2):
                 ids['id1']['attackselect']=1
             if ids['id2']['id']==id2:
                 ids['id2']['attackselect']=1
-    t=threading.Timer(60, noready, args=[ids])
+    t=threading.Timer(60, noready, args=[play[ids]])
     t.start()
     ids['timer']=t
     Keyboard=types.InlineKeyboardMarkup()
@@ -423,18 +423,18 @@ def ready(id):
             if ids['id2']['id']==id:
                 ids['id2']['ready']=1
             if ids['id1']['ready']==1 and ids['id2']['ready']==1:
-                endturn(ids)
+                endturn(play[ids])
 
 
 def noready(game):
-    endturn(game)
+    endturn(play[game])
                 
 
 def endturn(game):#############################################################  ENDTURN
     text1=''
     text2=''
-    player1=play[game]['id1']
-    player2=play[game]['id2']
+    player1=game['id1']
+    player2=game['id2']
     damage1=player1['attackround']
     damage2=player2['attackround']
     defence1=player1['defenceround']
