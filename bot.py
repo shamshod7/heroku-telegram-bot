@@ -450,8 +450,7 @@ def endturn(game):############################################################# 
     if losehp2<0:
         losehp2=0
     player2['hp']-=losehp2
-    text2+=player2['name']+':\n'+'Выставленная атака: '+str(player2['attackround'])+'\nВыставленная защита: '+str(player2['defenceround'])+
-    '\nПолученный урон: '+str(losehp2)
+    text2+=player2['name']+':\n'+'Выставленная атака: '+str(player2['attackround'])+'\nВыставленная защита: '+str(player2['defenceround'])+'\nПолученный урон: '+str(losehp2)
         
         
     bot.send_message(player1['id'], 'Результаты хода:\n\n'+text1+'\n'+text2)
