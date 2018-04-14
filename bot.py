@@ -327,10 +327,17 @@ def inline(call):
                 Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='enddef'))
                 medit('Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: 0', call.from_user.id, call.message.message_id, reply_markup=Keyboard)
                         
-                         
+    else:
+        if call.data=='enddefence':
+            waitplayer()
 
 
-
+            
+def waitplayer():
+    pass
+            
+            
+            
 def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdown'):
     return bot.edit_message_text(chat_id=chat_id,message_id=message_id,text=message_text,reply_markup=reply_markup,
                                  parse_mode=parse_mode)
