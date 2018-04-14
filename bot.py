@@ -439,7 +439,7 @@ def endturn(game):############################################################# 
     damage2=player2['attackround']
     defence1=player1['defenceround']
     defence2=player2['defenceround']
-    losehp1=dagame2-defence1
+    losehp1=damage2-defence1
     if losehp1<0:
         losehp1=0
     player1['hp']-=losehp1
