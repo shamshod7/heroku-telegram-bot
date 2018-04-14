@@ -426,7 +426,7 @@ def ready(id):
                 endturn(ids)
 
 
-noready(game):
+def noready(game):
     endturn(game)
                 
 
