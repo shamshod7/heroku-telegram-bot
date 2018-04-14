@@ -329,12 +329,24 @@ def inline(call):
                         
     else:
         if call.data=='enddefence':
-            waitplayer()
+          x=0
+          for ids in play:
+            if ids['id1']['id']==user:
+                x=1
+                y=ids['id1']
+            if ids['id2']['id']==user:
+                x=1
+                y=ids['id2']
+          if x==1:
+            try:
+                y['timer'].cancel()
+            except:
+                pass
+            ready(call.from_user.id)
 
 
             
-def waitplayer():
-    pass
+
             
             
             
@@ -391,6 +403,9 @@ def xod(id1, id2, name1, name2, player1, player2):
                 ids['id1']['attackselect']=1
             if ids['id2']['id']==id2:
                 ids['id2']['attackselect']=1
+    t=threading.Timer(60, noready, args=[ids])
+    t.start()
+    ids['timer']=t
     Keyboard=types.InlineKeyboardMarkup()
     Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
     Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
@@ -400,8 +415,51 @@ def xod(id1, id2, name1, name2, player1, player2):
     msg1=bot.send_message(id1, 'Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: 0', reply_markup=Keyboard)  
     msg2=bot.send_message(id2, 'Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: 0', reply_markup=Keyboard)
     
+
+def ready(id):
+    for ids in play:
+            if ids['id1']['id']==id:
+                ids['id1']['ready']=1
+            if ids['id2']['id']==id:
+                ids['id2']['ready']=1
+            if ids['id1']['ready']==1 and ids['id2']['ready']==1:
+                endturn(ids)
+
+
+noready(game):
+    endturn(game)
+                
+
+def endturn(game):#############################################################  ENDTURN
+    text1=''
+    text2=''
+    player1=play[game]['id1']
+    player2=play[game]['id2']
+    damage1=player1['attackround']
+    damage2=player2['attackround']
+    defence1=player1['defenceround']
+    defence2=player2['defenceround']
+    losehp1=dagame2-defence1
+    if losehp1<0:
+        losehp1=0
+    player1['hp']-=losehp1
+    text1+=player1['name']+':\n'+'Выставленная атака: '+str(player1['attackround'])+'\nВыставленная защита: '+str(player1['defenceround'])+
+    '\nПолученный урон: '+str(losehp1)
     
-    
+        
+    losehp2=dagame1-defence2
+    if losehp2<0:
+        losehp2=0
+    player2['hp']-=losehp2
+    text2+=player2['name']+':\n'+'Выставленная атака: '+str(player2['attackround'])+'\nВыставленная защита: '+str(player2['defenceround'])+
+    '\nПолученный урон: '+str(losehp2)
+        
+        
+    bot.send_message(player1['id'], 'Результаты хода:\n\n'+text1+'\n'+text2)
+    bot.send_message(player2['id'], 'Результаты хода:\n\n'+text1+'\n'+text2)
+        
+        
+        
 def noplayers(id):
     try:
         wait.remove(id)
@@ -514,6 +572,7 @@ def chlenomer(message):
  
 def creategame(id1, id2, player1, player2):
             return{
+                'timer':None,
                 'id1':{'id':id1,
                        'attackselect':0,
                        'defenceselect':0,
@@ -523,7 +582,8 @@ def creategame(id1, id2, player1, player2):
                        'defence':player1['pet']['maxdefence'],
                        'attackround':0,
                        'defenceround':0,
-                       'ready':0
+                       'ready':0,
+                       'name':player1['pet']['name']
                       },
                 'id2':{
                     'id':id2,
@@ -535,7 +595,8 @@ def creategame(id1, id2, player1, player2):
                     'defence':player2['pet']['maxdefence'],
                     'attackround':0,
                     'defenceround':0,
-                    'ready':0
+                    'ready':0,
+                    'name':player2['pet']['name']
                      }
             }
             
