@@ -305,7 +305,7 @@ def inline(call):
             else:
                 bot.send_message(user, 'Нет!')
                     
-    else:
+    elif defence==0:
         if call.data=='endattack':
           x=0
           for ids in play:
