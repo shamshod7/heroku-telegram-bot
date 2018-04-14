@@ -98,7 +98,7 @@ def size(m):
 def mme(m):
     x=iduser.find_one({'id': m.from_user.id})
     try:
-     bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')
+     bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. За 25 вы можете купить питомца! (Команда /buypet).')
      bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
     except:
         bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное, вы ни разу не измеряли член! (напишите боту "член")')
@@ -215,7 +215,8 @@ def fight(m):
         bot.send_message(m.from_user.id, 'Сначала напишите боту "член"!')
     else:
        bot.send_message(m.from_user.id, 'Эту команду можно использовать только в личных сообщениях бота!') 
-                
+  else:
+    bot.send_message(m.chat.id, 'В будущиэ обновлениях...')
 
 @bot.message_handler(commands=['cancel'])
 def cancel(m):
