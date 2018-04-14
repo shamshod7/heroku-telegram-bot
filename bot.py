@@ -443,8 +443,7 @@ def endturn(game):############################################################# 
     if losehp1<0:
         losehp1=0
     player1['hp']-=losehp1
-    text1+=player1['name']+':\n'+'Выставленная атака: '+str(player1['attackround'])+'\nВыставленная защита: '+str(player1['defenceround'])+
-    '\nПолученный урон: '+str(losehp1)
+    text1+=player1['name']+':\n'+'Выставленная атака: '+str(player1['attackround'])+'\nВыставленная защита: '+str(player1['defenceround'])+'\nПолученный урон: '+str(losehp1)
     
         
     losehp2=dagame1-defence2
