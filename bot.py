@@ -56,26 +56,15 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-#@bot.message_handler(commands=['update'])
-#def upd(m):
-#  if m.from_user.id==441399484:
-#         try:
-#            iduser.update_many({'pet':{'$ne':None}}, {'$set':{'pet':{'name':None,
-#        'level':1,
-#        'maxattack':4,
-#        'maxdefence':4,
-#        'attack':0,
-#        'defence':0,
-#        'hp':10,
-#        'regenattack':1,
-#        'regendefence':1,
-#        'skill':None,
-#        'exp':0,
-#        'wons':0}}}
-#                                )
-#            print('yes')
-#         except:
-#            pass
+@bot.message_handler(commands=['update'])
+def upd(m):
+  if m.from_user.id==441399484:
+         try:
+            iduser.update_many({'pet':{'$ne':None}}, {'$inc':{'chlenocoins':20}}
+                                )
+            print('yes')
+         except:
+            pass
             
             
 @bot.message_handler(commands=['mysize'])
@@ -473,10 +462,10 @@ def buypet(m):
       if x['pet']==None:
         if x['chlenocoins']>=25:
             iduser.update_one({'id':m.from_user.id}, {'$set':{'pet':petcreate()}})
-            iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-25}})
+            iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-5}})
             bot.send_message(m.chat.id, 'Поздравляю, вы купили питомца! Подробнее об этом в /pethelp.')
         else:
-            bot.send_message(m.chat.id, 'Не хватает членокоинов! (нужно 25)')
+            bot.send_message(m.chat.id, 'Не хватает членокоинов! (нужно 5)')
       else:
         bot.send_message(m.chat.id, 'У вас уже есть питомец!')
     else:
