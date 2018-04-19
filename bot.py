@@ -460,7 +460,7 @@ def buypet(m):
     x=iduser.find_one({'id':m.from_user.id})
     if x!=None:
       if x['pet']==None:
-        if x['chlenocoins']>=25:
+        if x['chlenocoins']>=5:
             iduser.update_one({'id':m.from_user.id}, {'$set':{'pet':petcreate()}})
             iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-5}})
             bot.send_message(m.chat.id, 'Поздравляю, вы купили питомца! Подробнее об этом в /pethelp.')
