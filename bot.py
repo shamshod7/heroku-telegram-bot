@@ -206,7 +206,7 @@ def fight(m):
     else:
        bot.send_message(m.from_user.id, 'Эту команду можно использовать только в личных сообщениях бота!') 
   else:
-    bot.send_message(m.chat.id, 'В будущиэ обновлениях...')
+    bot.send_message(m.chat.id, 'В будущих обновлениях...')
 
 @bot.message_handler(commands=['cancel'])
 def cancel(m):
