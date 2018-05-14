@@ -67,7 +67,13 @@ def elit(m):
 #         except:
 #            pass
             
-            
+
+    
+@bot.message_handler(commands=['usecoins'])
+def usecoins(m):
+    bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
+    
+    
 @bot.message_handler(commands=['mysize'])
 def size(m):
     x=iduser.find_one({'id':m.from_user.id})
