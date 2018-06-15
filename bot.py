@@ -79,7 +79,7 @@ def size(m):
     x=iduser.find_one({'id':m.from_user.id})
     try:
         sredn=x['summ']/x['kolvo']
-        sredn=round(sredn, 1)
+        sredn=round(sredn, 2)
     except:
         sredn=0
     try:
