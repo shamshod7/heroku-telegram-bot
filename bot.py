@@ -502,6 +502,9 @@ def feedback(message):
     if message.from_user.username!=None:
       bot.send_message(314238081, message.text+"\n"+'@'+message.from_user.username)
       bot.send_message(message.chat.id, 'Сообщение отправлено!')
+    else:
+        bot.send_message(314238081, message.text+"\n"+'@'+'None')
+        bot.send_message(message.chat.id, 'Сообщение отправлено!')
 
 
 texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
