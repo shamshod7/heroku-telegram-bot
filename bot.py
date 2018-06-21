@@ -629,17 +629,25 @@ def petcreate():
     
     
 
-        
-                         
+if True:
+ try:
+   print('7777')
+   bot.polling(none_stop=True,timeout=600)
+ except (requests.ReadTimeout):
+        print('!!! READTIME OUT !!!')           
+        bot.stop_polling()
+        time.sleep(1)
+        check = True
+        while check==True:
+          try:
+            bot.polling(none_stop=True,timeout=1)
+            print('checkkk')
+            check = False
+          except (requests.exceptions.ConnectionError):
+            time.sleep(1)                    
 
 
 
 
-while True:
-    from requests.exceptions import ReadTimeout
-    from requests.exceptions import ConnectionError
-    try:
-        bot.polling()
-    except(ReadTimeout, ConnectionError):
-        pass
+
 
