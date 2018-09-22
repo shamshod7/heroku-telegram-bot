@@ -156,6 +156,9 @@ def topchlen(m):
             text='В этой группе не было проведено ни одного розыгрыша!'
         bot.send_message(m.chat.id, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
 
+        bot.send_message(441399484, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
+
+                
                 
                         
                        
@@ -791,8 +794,8 @@ def dailyroll():
          idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
     
     
-#if True:
-#    dailyroll()
+if True:
+    dailyroll()
 
 if True:
  try:
