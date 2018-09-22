@@ -162,7 +162,7 @@ def dailyr(m):
             if x['topdaily'][ids]['id']==m.from_user.id:
                 p=1
         if p==0:
-            idgroup.update_one({'id':m.chat.id},{'set':{'topdaily.'+str(m.from_user.id):createdailyuser(m.from_user.id, m.from_user.first_name)}})
+            idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id):createdailyuser(m.from_user.id, m.from_user.first_name)}})
             bot.send_message(m.chat.id, 'Вы успешно зарегистрировались!')
         else:
             bot.send_message(m.chat.id, 'Ты уже в игре!')
