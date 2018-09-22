@@ -94,6 +94,7 @@ def biggest(m):
               nmb+=1
             if nmb>0:
               x['dailyroll']=0
+              idgroup.update_one({'id':m.chat.id},{'$set':{'dailyroll':0}})
               bot.send_message(m.chat.id, 'Начинаю поиск по базе данных...')
               t=threading.Timer(2, turn2, args=[m.chat.id])
               t.start()
