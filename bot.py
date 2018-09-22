@@ -148,7 +148,7 @@ def topchlen(m):
                     maxnumber=x['topdaily'][ids]['dailywins']
             if da==1:
                 winlist.append(winid)
-                text+=str(z)+'. '+x['topdaily'][ids]['name']+': '+str(x['topdaily'][winid]['dailywins'])+'\n'
+                text+=str(z)+'. '+x['topdaily'][str(winid)]['name']+': '+str(x['topdaily'][str(winid)]['dailywins'])+'\n'
             z+=1
         if text=='':
             text='В этой группе не было проведено ни одного розыгрыша!'
