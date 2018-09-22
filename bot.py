@@ -87,20 +87,23 @@ def upd(m):
 def biggest(m):
     if m.from_user.id!=m.chat.id:
         x=idgroup.find_one({'id':m.chat.id})
-        if x['dailyroll']==1:
-          nmb=0
-          for zz in x['topdaily']:
-            nmb+=1
-          if nmb>0:
-            x['dailyroll']=0
-            bot.send_message(m.chat.id, 'Начинаю поиск по базе данных...')
-            t=threading.Timer(2, turn2, args=[m.chat.id])
-            t.start()
-          else:
-            bot.send_message(m.chat.id, 'Нет ни одного зарегистрированного пользователя! Нажмите /dailychlenreg для того, '+
+        if x!=None:
+          if x['dailyroll']==1:
+            nmb=0
+            for zz in x['topdaily']:
+              nmb+=1
+            if nmb>0:
+              x['dailyroll']=0
+              bot.send_message(m.chat.id, 'Начинаю поиск по базе данных...')
+              t=threading.Timer(2, turn2, args=[m.chat.id])
+              t.start()
+            else:
+              bot.send_message(m.chat.id, 'Нет ни одного зарегистрированного пользователя! Нажмите /dailychlenreg для того, '+
                              'чтобы я добавил вас в список.')
-        else:
+          else:
             bot.send_message(m.chat.id, 'Сегодня уже был проведён розыгрыш! Со стояком был замечен:\n'+x['todaywinner']+'!')
+        else:
+            bot.send_message(m.chat.id, 'Сначала напишите в группу что-нибудь!')
         
 def turn2(id):
     bot.send_message(id, 'Сканирую каждый член, не двигайтесь...')
@@ -631,7 +634,7 @@ def chlenomer(message):
   if message.from_user.id not in ban:
     if message.chat.id<0:
       if idgroup.find_one({'id':message.chat.id}) is None:
-        idgroup.insert_one(createchat(m.chat.id))
+        idgroup.insert_one(createchat(message.chat.id))
       if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
     elif message.chat.id>0:
