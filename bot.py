@@ -573,7 +573,7 @@ def createchat(chatid):
            'dailyroll':1,
            'todaywinner':'Определяется в данный момент!',
            'topdaily':{ 
-           }})
+           }}
     
 def createdailyuser(id, name):
     return{'id':id,
