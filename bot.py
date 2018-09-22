@@ -102,7 +102,7 @@ def biggest(m):
               bot.send_message(m.chat.id, 'Нет ни одного зарегистрированного пользователя! Нажмите /dailychlenreg для того, '+
                              'чтобы я добавил вас в список.')
           else:
-            bot.send_message(m.chat.id, 'Сегодня уже был проведён розыгрыш! Со стояком был замечен:\n'+x['todaywinner']+'!')
+            bot.send_message(m.chat.id, 'Сегодня уже был проведён розыгрыш! Со стояком был замечен:\n\n'+x['todaywinner']+'!')
         else:
             bot.send_message(m.chat.id, 'Сначала напишите в группу что-нибудь!')
         
@@ -126,7 +126,7 @@ def turn3(id):
         idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(y)+'.maxwinstreak':x['topdaily'][str(y)]['currentwinstreak']}})
     idgroup.update_one({'id':id},{'$set':{'todaywinner':name}})
     idgroup.update_one({'id':{'$ne':id}},{'$set':{'topdaily.'+str(y)+'.currentwinstreak':0}})
-    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя '+name+'!')
+    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+'!')
 
     
     
