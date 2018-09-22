@@ -43,16 +43,22 @@ def sendmes(message):
         x=idgroup.find({})
         y=iduser.find({})
         tex=message.text.split('/sendm')
+        usend=0
+        gsend=0
         for one in x:
             try:
               bot.send_message(one['id'], tex[1])
+              gsend+=1
             except:
                 pass
         for one in y:
             try:
               bot.send_message(one['id'], tex[1])
+              usend+=1
             except:
                 pass
+        bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend)+'\n'+
+                         'Отправлено сообщений группам: '+str(gsend))
 
 
 @bot.message_handler(commands=['elita']) 
@@ -64,18 +70,61 @@ def elit(m):
         bot.send_message(m.from_user.id, 'Вы элита!', reply_markup=Kb)
     
     
-#@bot.message_handler(commands=['update'])
-#def upd(m):
-#  if m.from_user.id==441399484:
-#         try:
-#            iduser.update_many({'pet':{'$ne':None}}, {'$inc':{'chlenocoins':20}}
-#                                )
-#            print('yes')
-#         except:
-#            pass
+@bot.message_handler(commands=['update'])
+def upd(m):
+  if m.from_user.id==441399484:
+         try:
+            idgroup.update_many({}, {'$set':{'dailyroll':1,
+                                            'topdaily':{ }
+                                            }
+                                    }
+                                )
+            print('yes')
+         except:
+            pass
             
-
+@bot.message_handler(commands=['bigchlen'])
+def biggest(m):
+    if m.from_user.id!=m.chat.id:
+        x=idgroup.find_one({'id':m.chat.id})
+        if x['dailyroll']==1:
+            x['dailyroll']=0
+            bot.send_message(m.chat.id, 'Начинаю поиск по базе данных...')
+            t=threading.Timer(2, turn2, args=[m.chat.id])
+            t.start()
+        
+def turn2(id):
+    bot.send_message(id, 'Измеряю размер члена каждого участника игры, не двигайтесь...')
+    t=threading.Timer(2, turn3, args=[id])
+    t.start()
     
+    
+def turn3(id):
+    x=idgroup.find_one({'id':id})
+    y=random.choice(x['topdaily'])
+    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+y['id']+'.dailywins':1}})
+    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+y['id']+'.currentwinstreak':1}})
+    
+    idgroup.update_one({'id':{'$ne':id}},{'$set':{'topdaily.'+y['id']+'.currentwinstreak':0}})
+    bot.send_message(id, 'Измерения успешно проведены. Самый большой член сегодня у '+y['name']+'!')
+
+        
+@bot.message_handler(commands=['dailychlenreg'])
+def dailyr(m):
+    if m.from_user.id!=m.chat.id:
+        x=idgroup.find_one({'id':m.chat.id})
+        p=0
+        for ids in x['topdaily']:
+            if x['topdaily'][ids]['id']==m.from_user.id:
+                p=1
+        if p==0:
+            idgroup.update_one({'id':m.chat.id},{'set':{'topdaily.'+m.from_user.id:createdailyuser(m.from_user.id, m.from_user.first_name)}})
+        else:
+            bot.send_message(m.chat.id, 'Ты уже в игре!')
+    else:
+        bot.send_message(m.chat.id, 'Можно регистрироваться только в группах!')
+
+
 @bot.message_handler(commands=['usecoins'])
 def usecoins(m):
     bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
@@ -519,17 +568,41 @@ texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... �
        'Член в астрале', 'Прислоните член к экрану, я не вижу'
       ]
 
+def createchat(chatid):
+    return{'id':chatid,
+           'dailyroll':1,
+           'todaywinner':'Определяется в данный момент!',
+           'topdaily':{ 
+           }})
+    
+def createdailyuser(id, name):
+    return{'id':id,
+           'name':name,
+           'dailywins':0,
+           'maxwinstreak':0,
+           'currentwinstreak':0
+           }
+
+
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
   if message.from_user.id not in ban:
     if message.chat.id<0:
       if idgroup.find_one({'id':message.chat.id}) is None:
-        idgroup.insert_one({'id':message.chat.id})
+        idgroup.insert_one(createchat(m.chat.id))
       if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
+        x=idgroup.find_one({'id':m.chat.id})
+        if x!=None:
+          try:
+            z=x['topdaily'][m.from_user.id]
+            if z!=None:
+                idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+m.from_user.id+'.name':m.from_user.first_name}})
+          except:
+            pass
                                           
     
     if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower() or 'писька' in message.text.lower() or 'пиписька' in message.text.lower():
@@ -632,9 +705,42 @@ def petcreate():
 
 
 
-
+def dailyroll():
+   t=threading.Timer(300, dailyroll)
+   t.start()
+   x=time.ctime()
+   x=x.split(" ")
+   print(x)
+   for ids in x:
+      for idss in ids:
+         if idss==':':
+            tru=ids
+   try:
+      x=tru
+      print(x)
+      x=x.split(":")
+      print(x)
+      y=int(x[1])
+      x=int(x[0])+3
+      print(x)
+      if x==24 and y<=5:
+         idgroup.update_many({}, {'$set':{'dailyroll':1}})
+         idgroup.update_many({}, {'$set':{'todaywinner':'Определяется в данный момент!'}})
+   except:
+      x=tru
+      print(x)
+      x=x.split(":")
+      print(x)
+      y=int(x[1])
+      x=int(x[0])+3
+      print(x)
+      if x==24 and y<=5:
+         idgroup.update_many({}, {'$set':{'dailyroll':1}})
+         idgroup.update_many({}, {'$set':{'todaywinner':'Определяется в данный момент!'}})
     
     
+#if True:
+#    dailyroll()
 
 if True:
  try:
