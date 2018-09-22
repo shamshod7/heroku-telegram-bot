@@ -125,7 +125,9 @@ def turn3(id):
     if x['topdaily'][str(y)]['maxwinstreak']<x['topdaily'][str(y)]['currentwinstreak']:
         idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(y)+'.maxwinstreak':x['topdaily'][str(y)]['currentwinstreak']}})
     idgroup.update_one({'id':id},{'$set':{'todaywinner':name}})
-    idgroup.update_many({'id':{'$ne':id}},{'$set':{'topdaily.'+str(y)+'.currentwinstreak':0}})
+    for ids in x['topdaily']:
+      if x['topdaily'][ids]['id']!=y:
+        idgroup.update_one({'id':id}},{'$set':{'topdaily.'+str(x['topdaily'][ids]['id'])+'.currentwinstreak':0}})
     bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+'!')
 
     
