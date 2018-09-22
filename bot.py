@@ -83,18 +83,27 @@ def upd(m):
          except:
             pass
             
-@bot.message_handler(commands=['bigchlen'])
+@bot.message_handler(commands=['stoyak'])
 def biggest(m):
     if m.from_user.id!=m.chat.id:
         x=idgroup.find_one({'id':m.chat.id})
         if x['dailyroll']==1:
+          nmb=0
+          for zz in x['topdaily']:
+            nmb+=1
+          if nmb>0:
             x['dailyroll']=0
             bot.send_message(m.chat.id, 'Начинаю поиск по базе данных...')
             t=threading.Timer(2, turn2, args=[m.chat.id])
             t.start()
+          else:
+            bot.send_message(m.chat.id, 'Нет ни одного зарегистрированного пользователя! Нажмите /dailychlenreg для того, '+
+                             'чтобы я добавил вас в список.')
+        else:
+            bot.send_message(m.chat.id, 'Сегодня уже был проведён розыгрыш! Со стояком был замечен:\n'+x['todaywinner']+'!')
         
 def turn2(id):
-    bot.send_message(id, 'Измеряю размер члена каждого участника игры, не двигайтесь...')
+    bot.send_message(id, 'Сканирую каждый член, не двигайтесь...')
     t=threading.Timer(2, turn3, args=[id])
     t.start()
     
@@ -104,11 +113,43 @@ def turn3(id):
     y=random.choice(x['topdaily'])
     idgroup.update_one({'id':id},{'$inc':{'topdaily.'+y['id']+'.dailywins':1}})
     idgroup.update_one({'id':id},{'$inc':{'topdaily.'+y['id']+'.currentwinstreak':1}})
-    
+    x=idgroup.find_one({'id':id})
+    if x['topdaily'][y['id']]['maxwinstreak']<x['topdaily'][y['id']]['currentwinstreak']:
+        idgroup.update_one({'id':id},{'$set':{'topdaily.'+y['id']+'.maxwinstreak':x['topdaily'][y['id']]['currentwinstreak']}})
+    idgroup.update_one({'id':id},{'$set':{'todaywinner':y['name']}})
     idgroup.update_one({'id':{'$ne':id}},{'$set':{'topdaily.'+y['id']+'.currentwinstreak':0}})
-    bot.send_message(id, 'Измерения успешно проведены. Самый большой член сегодня у '+y['name']+'!')
+    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя '+y['name']+'!')
 
-        
+    
+    
+@bot.message_handler(commands=['topchlens'])
+def topchlen(m):
+    x=idgroup.find_one({'id':m.chat.id})
+    if x!=None:
+        text=''
+        z=1
+        winlist=[]
+        while z<11:
+            winid=0
+            maxnumber=-1
+            da=0
+            for ids in x['topdaily']:
+                if x['topdaily'][ids]['dailywins']>maxnumber and x['topdaily'][ids]['id'] not in winlist:
+                    da=1
+                    winid=x['topdaily'][ids]['id']
+                    maxnumber=x['topdaily'][ids]['dailywins']
+            if da==1:
+                winlist.append(winid)
+                text+=str(z)+'. '+x['topdaily'][ids]['name']+': '+str(x['topdaily'][winid]['dailywins'])+'\n'
+            z+=1
+        if text=='':
+            text='В этой группе не было проведено ни одного розыгрыша!'
+        bot.send_message(m.chat.id, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
+
+                
+                        
+                       
+    
 @bot.message_handler(commands=['dailychlenreg'])
 def dailyr(m):
     if m.from_user.id!=m.chat.id:
@@ -119,6 +160,7 @@ def dailyr(m):
                 p=1
         if p==0:
             idgroup.update_one({'id':m.chat.id},{'set':{'topdaily.'+m.from_user.id:createdailyuser(m.from_user.id, m.from_user.first_name)}})
+            bot.send_message(m.chat.id, 'Вы успешно зарегистрировались!')
         else:
             bot.send_message(m.chat.id, 'Ты уже в игре!')
     else:
@@ -571,7 +613,7 @@ texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... �
 def createchat(chatid):
     return{'id':chatid,
            'dailyroll':1,
-           'todaywinner':'Определяется в данный момент!',
+           'todaywinner':'Поиск осуществляется в данный момент',
            'topdaily':{ 
            }}
     
@@ -725,7 +767,7 @@ def dailyroll():
       print(x)
       if x==24 and y<=5:
          idgroup.update_many({}, {'$set':{'dailyroll':1}})
-         idgroup.update_many({}, {'$set':{'todaywinner':'Определяется в данный момент!'}})
+         idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
    except:
       x=tru
       print(x)
@@ -736,7 +778,7 @@ def dailyroll():
       print(x)
       if x==24 and y<=5:
          idgroup.update_many({}, {'$set':{'dailyroll':1}})
-         idgroup.update_many({}, {'$set':{'todaywinner':'Определяется в данный момент!'}})
+         idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
     
     
 #if True:
