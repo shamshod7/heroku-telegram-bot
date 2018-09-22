@@ -595,12 +595,12 @@ def chlenomer(message):
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
-        x=idgroup.find_one({'id':m.chat.id})
+        x=idgroup.find_one({'id':message.chat.id})
         if x!=None:
           try:
-            z=x['topdaily'][m.from_user.id]
+            z=x['topdaily'][message.from_user.id]
             if z!=None:
-                idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+m.from_user.id+'.name':m.from_user.first_name}})
+                idgroup.update_one({'id':message.chat.id},{'$set':{'topdaily.'+message.from_user.id+'.name':message.from_user.first_name}})
           except:
             pass
                                           
