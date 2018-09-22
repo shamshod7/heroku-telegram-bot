@@ -113,15 +113,19 @@ def turn2(id):
     
 def turn3(id):
     x=idgroup.find_one({'id':id})
-    y=random.choice(x['topdaily'])
-    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+y['id']+'.dailywins':1}})
-    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+y['id']+'.currentwinstreak':1}})
+    lst=[]
+    for ids in x['topdaily']:
+        lst.append(x['topdaily'][ids]['id'])
+    y=random.choice(lst)
+    name=x['topdaily'][str(y)]['name']
+    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.dailywins':1}})
+    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.currentwinstreak':1}})
     x=idgroup.find_one({'id':id})
-    if x['topdaily'][y['id']]['maxwinstreak']<x['topdaily'][y['id']]['currentwinstreak']:
-        idgroup.update_one({'id':id},{'$set':{'topdaily.'+y['id']+'.maxwinstreak':x['topdaily'][y['id']]['currentwinstreak']}})
-    idgroup.update_one({'id':id},{'$set':{'todaywinner':y['name']}})
-    idgroup.update_one({'id':{'$ne':id}},{'$set':{'topdaily.'+y['id']+'.currentwinstreak':0}})
-    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя '+y['name']+'!')
+    if x['topdaily'][str(y)]['maxwinstreak']<x['topdaily'][str(y)]['currentwinstreak']:
+        idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(y)+'.maxwinstreak':x['topdaily'][str(y)]['currentwinstreak']}})
+    idgroup.update_one({'id':id},{'$set':{'todaywinner':name}})
+    idgroup.update_one({'id':{'$ne':id}},{'$set':{'topdaily.'+str(y)+'.currentwinstreak':0}})
+    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя '+name+'!')
 
     
     
