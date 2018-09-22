@@ -75,7 +75,9 @@ def upd(m):
   if m.from_user.id==441399484:
          try:
             idgroup.update_many({}, {'$set':{'dailyroll':1,
-                                            'topdaily':{ }
+                                            'topdaily':{ },
+                                             'todaywinner':'Поиск осуществляется в данный момент',
+          
                                             }
                                     }
                                 )
