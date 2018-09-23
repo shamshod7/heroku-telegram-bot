@@ -169,15 +169,18 @@ def topchlen(m):
 def dailyr(m):
     if m.from_user.id!=m.chat.id:
         x=idgroup.find_one({'id':m.chat.id})
-        p=0
-        for ids in x['topdaily']:
+        if x!=None:
+         p=0
+         for ids in x['topdaily']:
             if x['topdaily'][ids]['id']==m.from_user.id:
                 p=1
-        if p==0:
+         if p==0:
             idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id):createdailyuser(m.from_user.id, m.from_user.first_name)}})
             bot.send_message(m.chat.id, 'Вы успешно зарегистрировались!')
-        else:
+         else:
             bot.send_message(m.chat.id, 'Ты уже в игре!')
+        else:
+            bot.send_message(m.chat.id, "Сначала напишите в чат что-нибудь!")
     else:
         bot.send_message(m.chat.id, 'Можно регистрироваться только в группах!')
 
