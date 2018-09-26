@@ -81,9 +81,9 @@ def elit(m):
 #                                            }
 #                                    }
 #                                )
-            print('yes')
-         except:
-            pass
+ #           print('yes')
+    #     except:
+      #      pass
             
 @bot.message_handler(commands=['stoyak'])
 def biggest(m):
