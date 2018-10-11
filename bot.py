@@ -24,6 +24,7 @@ play=[]
 
 
 
+
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 writed=[
