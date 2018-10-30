@@ -60,6 +60,22 @@ def sendmes(message):
                 pass
         bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend)+'\n'+
                          'Отправлено сообщений группам: '+str(gsend))
+        
+        
+        
+@bot.message_handler(commands=['sendp'])
+def sendmes(message):
+    if message.from_user.id==441399484:
+        y=iduser.find({})
+        tex=message.text.split('/sendm')
+        usend=0
+        for one in y:
+            try:
+              bot.send_message(one['id'], tex[1])
+              usend+=1
+            except:
+                pass
+        bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend))
 
 
 @bot.message_handler(commands=['elita']) 
