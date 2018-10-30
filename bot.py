@@ -64,7 +64,7 @@ def sendmes(message):
         
         
 @bot.message_handler(commands=['sendp'])
-def sendmes(message):
+def sendmesssss(message):
     if message.from_user.id==441399484:
         y=iduser.find({})
         tex=message.text.split('/sendm')
