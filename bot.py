@@ -261,6 +261,7 @@ def channel(message):
 
 @bot.message_handler(commands=['start'])
 def startms(message):
+  if message.from_user.id==message.chat.id:
     bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
 
 
