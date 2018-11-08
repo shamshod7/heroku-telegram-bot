@@ -726,8 +726,11 @@ def chlenomer(message):
             text='ВЫ ОЧЕНЬ ВЕЗУЧИЙ ЧЕЛОВЕК! Вы открыли САМОЕ СЕКРЕТНОЕ СООБЩЕНИЕ, шанс которого равен 0,001%!\nК тому же, вы получили 50 членокоинов! Смотрите /me для проверки.'
             t=1
         if t==1:
-            bot.send_message(message.chat.id, message.from_user.first_name+', '+text)
-            t=0
+            try:
+              bot.send_message(message.chat.id, message.from_user.first_name+', '+text)
+              t=0
+            except:
+              pass
         
 
  
