@@ -683,7 +683,7 @@ def chlenomer(message):
             pass
                                           
     
-    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower() or 'писька' in message.text.lower() or 'пиписька' in message.text.lower():
+    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower() or 'писька' in message.text.lower() or 'пиписька' in message.text.lower() or 'елда' in message.text.lower() or 'таежный прибор' in m.text.lower() or 'таёжный прибор' in m.text.lower() or 'пися' in m.text.lower() or 'огурец' in m.text.lower():
         print(message.chat.id)
         mega=random.randint(1,100)
         ultramega=random.randint(1,1000)
