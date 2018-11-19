@@ -664,6 +664,7 @@ def createdailyuser(id, name):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+  m=message
   if message.from_user.id not in ban:
     if message.chat.id<0:
       if idgroup.find_one({'id':message.chat.id}) is None:
@@ -683,7 +684,7 @@ def chlenomer(message):
             pass
                                           
     
-    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower() or 'писька' in message.text.lower() or 'пиписька' in message.text.lower() or 'елда' in message.text.lower() or 'таежный прибор' in m.text.lower() or 'таёжный прибор' in m.text.lower() or 'пися' in m.text.lower() or 'огурец' in m.text.lower():
+    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower() or 'писька' in message.text.lower() or 'пиписька' in message.text.lower() or 'елда' in message.text.lower() or 'таежный прибор' in message.text.lower() or 'таёжный прибор' in message.text.lower() or 'пися' in message.text.lower() or 'огурец' in message.text.lower():
         print(message.chat.id)
         mega=random.randint(1,100)
         ultramega=random.randint(1,1000)
