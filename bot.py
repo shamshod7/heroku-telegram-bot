@@ -47,7 +47,7 @@ def donatemes(m):
 
 @bot.message_handler(commands=['removedailyuser'])
 def removedailyu(m):
-    print(m.chat)
+    print(m)
     #tr=0
     #for ids in x:
     #    print(ids)
