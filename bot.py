@@ -33,11 +33,24 @@ massive=['Хер','хер','Член','член','Хуй','хуй']
 elita=[441399484, 55888804, 314238081]
 
 
+@bot.message_handler(commands=['id'])
+def iddd(m):
+    if m.reply_to_message!=None:
+        user=m.reply_to_message.from_user
+        bot.send_message(m.chat.id, 'id выбранного пользователя:\n'+'`'+str(user.id)+'`',reply_to_message_id=m.message_id,parse_mode='markdown')
+    else:
+        bot.send_message(m.chat.id, 'Чтобы узнать id пользователя, введите эту команду, ответив на его сообщение.')
+
 @bot.message_handler(commands=['donate'])
 def donatemes(m):
     bot.send_message(m.chat.id, 'Если вам нравится бот и вы хотите поддержать разработчика, переводите деньги на карту:\n`5336 6900 5562 4037`\nЗаранее благодарю)', parse_mode='markdown')
 
-
+@bot.message_handler(commands=['removedailyuser'])
+def removedailyu(m):
+    pass
+    
+    
+    
 @bot.message_handler(commands=['sendm'])
 def sendmes(message):
     if message.from_user.id==441399484:
