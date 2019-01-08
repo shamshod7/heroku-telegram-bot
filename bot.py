@@ -49,8 +49,27 @@ def donatemes(m):
 def removedailyu(m):
     pass
     x=bot.get_chat_member(m.chat.id, m.from_user.id)
-    if 'administrator' in x.status:
-        bot.send_message(m.chat.id, 'Вы админ чата!')
+    if 'administrator' in x.status or m.from_user.id==441399484:
+        try:
+            chat=idgroup.find_one({'id':m.chat.id})
+            try:
+                if len(m.text.split(' '))==2:
+                    user=chat['topdaily'][m.text.split(' ')[1]]
+                    if user['id']!=441399484:
+                        idgroup.update_one({'id':chat['id']},{'$set':{'topdaily.'+user['id']:{'name':user['name']}}})
+                        bot.send_message(m.chat.id, 'Юзер был успешно удалён из списка!')
+                    else:
+                        bot.send_message(m.chat.id, 'Вы не можете удалить администратора бота из списка!')
+                else:
+                    bot.send_message(m.chat.id, 'Чтобы удалить юзера из ежедневного розыгрыша, введите эту команду в таком формате:\n'+
+                                     '/removedailyuser *USERID*, где *USERID* - айди участника, которого вы хотите удалить. Взять его можно '+
+                                     'по команде /id.\n\nВНИМАНИЕ!!!\nУдалив участника из списка, вы сбросите его чатовую статистику ежедневных '+
+                                     'розыгрышей!',parse_mode='markdown')
+            except:
+                bot.send_message(m.chat.id, 'Юзер с таким id не регистрировался в этом чате!')
+        except:
+            bot.send_message(m.chat.id, 'Нельзя использовать эту команду в личке!')
+               
     else:
         bot.send_message(m.chat.id, 'Вы не админ чата!')
     
