@@ -48,17 +48,12 @@ def donatemes(m):
 @bot.message_handler(commands=['removedailyuser'])
 def removedailyu(m):
     pass
-    x=bot.get_chat_administrators(m.chat.id)
+    x=bot.get_chat_member(m.chat.id, m.from_user.id)
     print(x)
-    #tr=0
-    #for ids in x:
-    #    print(ids)
-    #    if m.from_user.id==ids.id:
-    #        tr=1
-    #if tr==1:
-    #    bot.send_message(m.chat.id, 'Вы админ чата!')
-    #else:
-    #    bot.send_message(m.chat.id, 'Вы не админ чата!')
+    if 'administrator' in x['status']:
+        bot.send_message(m.chat.id, 'Вы админ чата!')
+    else:
+        bot.send_message(m.chat.id, 'Вы не админ чата!')
     
     
     
@@ -163,24 +158,27 @@ def turn3(id):
             lst.append(x['topdaily'][ids]['id'])
         except:
             pass
-    y=random.choice(lst)
-    name=x['topdaily'][str(y)]['name']
-    try:
-        username=x['topdaily'][str(y)]['username']
-        if username==None:
+    if len(lst)>0:
+        y=random.choice(lst)
+        name=x['topdaily'][str(y)]['name']
+        try:
+            username=x['topdaily'][str(y)]['username']
+            if username==None:
+                username='None'
+        except:
             username='None'
-    except:
-        username='None'
-    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.dailywins':1}})
-    idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.currentwinstreak':1}})
-    x=idgroup.find_one({'id':id})
-    if x['topdaily'][str(y)]['maxwinstreak']<x['topdaily'][str(y)]['currentwinstreak']:
-        idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(y)+'.maxwinstreak':x['topdaily'][str(y)]['currentwinstreak']}})
-    idgroup.update_one({'id':id},{'$set':{'todaywinner':name}})
-    for ids in x['topdaily']:
-      if x['topdaily'][ids]['id']!=y:
-        idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(x['topdaily'][ids]['id'])+'.currentwinstreak':0}})
-    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+' (@'+username+')!')
+        idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.dailywins':1}})
+        idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.currentwinstreak':1}})
+        x=idgroup.find_one({'id':id})
+        if x['topdaily'][str(y)]['maxwinstreak']<x['topdaily'][str(y)]['currentwinstreak']:
+            idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(y)+'.maxwinstreak':x['topdaily'][str(y)]['currentwinstreak']}})
+        idgroup.update_one({'id':id},{'$set':{'todaywinner':name}})
+        for ids in x['topdaily']:
+          if x['topdaily'][ids]['id']!=y:
+            idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(x['topdaily'][ids]['id'])+'.currentwinstreak':0}})
+        bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+' (@'+username+')!')
+    else:
+        bot.send_message(m.chat.id, 'В этой группе на ежедневный розыгрыш не зарегистрировано ни одного пользователя!')
 
     
     
