@@ -41,6 +41,11 @@ def iddd(m):
     else:
         bot.send_message(m.chat.id, 'Чтобы узнать id пользователя, введите эту команду, ответив на его сообщение.')
 
+@bot.message_handler(commands=['chatid'])
+def chatid(m):
+    print(m.chat.id)
+    
+        
 @bot.message_handler(commands=['donate'])
 def donatemes(m):
     bot.send_message(m.chat.id, 'Если вам нравится бот и вы хотите поддержать разработчика, переводите деньги на карту:\n`5336 6900 5562 4037`\nЗаранее благодарю)', parse_mode='markdown')
