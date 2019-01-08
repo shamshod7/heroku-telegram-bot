@@ -49,7 +49,7 @@ def donatemes(m):
 def removedailyu(m):
     pass
     x=bot.get_chat_member(m.chat.id, m.from_user.id)
-    if 'administrator' in x.status or m.from_user.id==441399484:
+    if 'administrator' in x.status or 'creator' in x.status or m.from_user.id==441399484:
         try:
             chat=idgroup.find_one({'id':m.chat.id})
             try:
