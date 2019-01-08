@@ -49,8 +49,7 @@ def donatemes(m):
 def removedailyu(m):
     pass
     x=bot.get_chat_member(m.chat.id, m.from_user.id)
-    print(x)
-    if 'administrator' in x['status']:
+    if 'administrator' in x.status:
         bot.send_message(m.chat.id, 'Вы админ чата!')
     else:
         bot.send_message(m.chat.id, 'Вы не админ чата!')
