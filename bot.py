@@ -135,9 +135,18 @@ def turn3(id):
     x=idgroup.find_one({'id':id})
     lst=[]
     for ids in x['topdaily']:
-        lst.append(x['topdaily'][ids]['id'])
+        try:
+            lst.append(x['topdaily'][ids]['id'])
+        except:
+            pass
     y=random.choice(lst)
     name=x['topdaily'][str(y)]['name']
+    try:
+        username=x['topdaily'][str(y)]['username']
+        if username==None:
+            username='None'
+    except:
+        username='None'
     idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.dailywins':1}})
     idgroup.update_one({'id':id},{'$inc':{'topdaily.'+str(y)+'.currentwinstreak':1}})
     x=idgroup.find_one({'id':id})
@@ -147,7 +156,7 @@ def turn3(id):
     for ids in x['topdaily']:
       if x['topdaily'][ids]['id']!=y:
         idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(x['topdaily'][ids]['id'])+'.currentwinstreak':0}})
-    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+'!')
+    bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+' (@'+username+')!')
 
     
     
@@ -163,10 +172,13 @@ def topchlen(m):
             maxnumber=-1
             da=0
             for ids in x['topdaily']:
-                if x['topdaily'][ids]['dailywins']>maxnumber and x['topdaily'][ids]['id'] not in winlist:
-                    da=1
-                    winid=x['topdaily'][ids]['id']
-                    maxnumber=x['topdaily'][ids]['dailywins']
+                try:
+                    if x['topdaily'][ids]['dailywins']>maxnumber and x['topdaily'][ids]['id'] not in winlist:
+                        da=1
+                        winid=x['topdaily'][ids]['id']
+                        maxnumber=x['topdaily'][ids]['dailywins']
+                except:
+                    pass
             if da==1:
                 winlist.append(winid)
                 text+=str(z)+'. '+x['topdaily'][str(winid)]['name']+': '+str(x['topdaily'][str(winid)]['dailywins'])+'\n'
@@ -189,10 +201,13 @@ def dailyr(m):
         if x!=None:
          p=0
          for ids in x['topdaily']:
-            if x['topdaily'][ids]['id']==m.from_user.id:
-                p=1
+            try:
+                if x['topdaily'][ids]['id']==m.from_user.id:
+                    p=1
+            except:
+                pass
          if p==0:
-            idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id):createdailyuser(m.from_user.id, m.from_user.first_name)}})
+            idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id):createdailyuser(m.from_user.id, m.from_user.first_name,m.from_user.username)}})
             bot.send_message(m.chat.id, 'Вы успешно зарегистрировались!')
          else:
             bot.send_message(m.chat.id, 'Ты уже в игре!')
@@ -653,9 +668,10 @@ def createchat(chatid):
            'topdaily':{ 
            }}
     
-def createdailyuser(id, name):
+def createdailyuser(id, name,username):
     return{'id':id,
            'name':name,
+           'username':username,
            'dailywins':0,
            'maxwinstreak':0,
            'currentwinstreak':0
@@ -671,7 +687,7 @@ def chlenomer(message):
         idgroup.insert_one(createchat(message.chat.id))
       if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
-      idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id)+'.name':m.from_user.first_name}})
+      idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id)+'.name':m.from_user.first_name,'topdaily.'+str(m.from_user.id)+'.username':m.from_user.username}})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
