@@ -671,6 +671,7 @@ def chlenomer(message):
         idgroup.insert_one(createchat(message.chat.id))
       if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
+      idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id)+'.name':m.from_user.first_name}})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
