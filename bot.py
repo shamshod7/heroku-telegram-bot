@@ -684,8 +684,13 @@ def chlenomer(message):
           except:
             pass
                                           
-    
-    if 'член' in message.text.lower() or 'хер' in message.text.lower() or 'хуй' in message.text.lower() or 'залупа' in message.text.lower() or 'пиписька' in message.text.lower() or 'пенис' in message.text.lower() or 'хуе' in message.text.lower() or 'хуё' in message.text.lower() or 'писька' in message.text.lower() or 'пиписька' in message.text.lower() or 'елда' in message.text.lower() or 'таежный прибор' in message.text.lower() or 'таёжный прибор' in message.text.lower() or 'пися' in message.text.lower() or 'огурец' in message.text.lower():
+    spisok=['член','хер','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
+           'дроч']
+    tr=0
+    for ids in spisok:
+        if ids in m.text.lower():
+            tr=1
+    if tr==1:
         print(message.chat.id)
         mega=random.randint(1,100)
         ultramega=random.randint(1,1000)
@@ -789,35 +794,28 @@ def petcreate():
 
 
 def dailyroll():
-   t=threading.Timer(300, dailyroll)
+   t=threading.Timer(60, dailyroll)
    t.start()
    x=time.ctime()
    x=x.split(" ")
-   print(x)
    for ids in x:
       for idss in ids:
          if idss==':':
             tru=ids
    try:
       x=tru
-      print(x)
       x=x.split(":")
-      print(x)
       y=int(x[1])
       x=int(x[0])+3
-      print(x)
-      if x==24 and y<=5:
+      if x==24 and y<=0:
          idgroup.update_many({}, {'$set':{'dailyroll':1}})
          idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
    except:
       x=tru
-      print(x)
       x=x.split(":")
-      print(x)
       y=int(x[1])
       x=int(x[0])+3
-      print(x)
-      if x==24 and y<=5:
+      if x==24 and y<=0:
          idgroup.update_many({}, {'$set':{'dailyroll':1}})
          idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
     
@@ -829,7 +827,7 @@ if True:
  try:
    print('7777')
    bot.polling(none_stop=True,timeout=600)
- except (requests.ReadTimeout):
+ except:
         print('!!! READTIME OUT !!!')           
         bot.stop_polling()
         time.sleep(1)
@@ -839,7 +837,7 @@ if True:
             bot.polling(none_stop=True,timeout=1)
             print('checkkk')
             check = False
-          except (requests.exceptions.ConnectionError):
+          except:
             time.sleep(1)                    
 
 
