@@ -32,6 +32,13 @@ writed=[
 massive=['Хер','хер','Член','член','Хуй','хуй']
 elita=[441399484, 55888804, 314238081]
 
+@bot.message_handler(commands=['update'])
+def upddd(m):
+    if m.from_user.id==441399484:
+        idgroup.update_many({}, {'$set':{'dailyroll':1}})
+        idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
+        bot.send_message(m.chat.id, 'ready')
+
 
 @bot.message_handler(commands=['id'])
 def iddd(m):
