@@ -43,7 +43,7 @@ def iddd(m):
 
 @bot.message_handler(commands=['chatid'])
 def chatid(m):
-    print(m.chat.id)
+    print('chatid '+str(m.chat.id))
     
         
 @bot.message_handler(commands=['donate'])
