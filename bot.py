@@ -729,11 +729,10 @@ def createdailyuser(id, name,username):
            'currentwinstreak':0
            }
 
-
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
   m=message
-  if message.from_user.id not in ban:
+  if message.from_user.id not in ban and message.forward_from==None:
     if message.chat.id<0:
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one(createchat(message.chat.id))
