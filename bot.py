@@ -14,7 +14,7 @@ client=MongoClient(client1)
 db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
-penis=db.
+penis=db.penis
 
 ban=[]
 
@@ -39,16 +39,15 @@ elita=[441399484, 55888804, 314238081]
 @bot.message_handler(commands=['update'])
 def upddd(m):
     if m.from_user.id==441399484:
-        idgroup.update_many({}, {'$set':{'dailyroll':1}})
-        idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
-        bot.send_message(m.chat.id, 'ready')
-
+        iduser.update_many({}, {'$set':{'msgcount':0, 'penisincs':0}})
+        bot.send_message(m.chat.id, 'updated')
 
 @bot.message_handler(commands=['globalchlen'])
 def globalpeniss(m):
     if m.from_user.id not in ban:
         incmsg(m.from_user.id, m.chat.id, m.message_id)
         penis.update_one({},{'$inc':{'penis':0.1}})
+        iduser.update_one({'id':m.from_user.id},{'$inc':{'penisincs':0.1}})
         p=penis.find_one({})
         ps=p['penis']
         bot.send_message(m.chat.id, 'Вы увеличили мой член на 0.1 см! Текущая длина: '+str(round(ps,2))+' см!')
@@ -488,13 +487,13 @@ def chlenomer(message):
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one(createchat(message.chat.id))
       if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
       gr=idgroup.find_one({'id':m.chat.id})
       if gr['topdaily'][message.from_user.id]['name']!=message.from_user.first_name or gr['topdaily'][message.from_user.id]['username']!=message.from_user.username:
         idgroup.update_one({'id':message.chat.id},{'$set':{'topdaily.'+str(message.from_user.id)+'.name':message.from_user.first_name,'topdaily.'+str(message.from_user.id)+'.username':message.from_user.username}})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
     spisok=['член','хер','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
            'дроч']
@@ -547,7 +546,7 @@ def chlenomer(message):
         
             
 def incmsg(id, chatid, mid):
-    users.update_one({'id':id},{'$inc':{'msgcount':1}})
+    iduser.update_one({'id':id},{'$inc':{'msgcount':1}})
     if msgcount>=20:
         bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
         ban.append(id)
