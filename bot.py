@@ -25,9 +25,6 @@ play=[]
 
 
 
-msgcount=[]
-
-
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
@@ -603,19 +600,12 @@ def dailyroll():
     
     
 
-dailyroll()
+#dailyroll()
 
 print('7777')
 
 def poll():
-    try:
         bot.polling(none_stop=True,timeout=600)  
-    except:
-        try:
-            bot.stop_polling()
-        except:
-            pass
-        poll()
 
 
 poll()
