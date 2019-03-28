@@ -606,7 +606,7 @@ def dailyroll():
     
     
 
-#dailyroll()
+dailyroll()
 
 print('7777')
 
