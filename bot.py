@@ -576,7 +576,7 @@ def petcreate():
 def dailyroll():
    t=threading.Timer(60, dailyroll)
    t.start()
-   users.update_many({},{'$set':{'msgcount':0}})
+   iduser.update_many({},{'$set':{'msgcount':0}})
    ban=[]
    x=time.ctime()
    x=x.split(" ")
