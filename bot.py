@@ -579,7 +579,6 @@ def dailyroll():
    t=threading.Timer(60, dailyroll)
    t.start()
    iduser.update_many({},{'$set':{'msgcount':0}})
-   global ban
    ban=[]
    x=time.ctime()
    x=x.split(" ")
