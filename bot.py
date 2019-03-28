@@ -14,6 +14,7 @@ client=MongoClient(client1)
 db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
+penis=db.
 
 ban=[]
 
@@ -22,6 +23,9 @@ ch=[]
 members=[]
 play=[]
 
+
+
+msgcount=[]
 
 
 
@@ -40,8 +44,19 @@ def upddd(m):
         bot.send_message(m.chat.id, 'ready')
 
 
+@bot.message_handler(commands=['globalchlen'])
+def globalpeniss(m):
+    if m.from_user.id not in ban:
+        incmsg(m.from_user.id, m.chat.id, m.message_id)
+        penis.update_one({},{'$inc':{'penis':0.1}})
+        p=penis.find_one({})
+        ps=p['penis']
+        bot.send_message(m.chat.id, 'Вы увеличили мой член на 0.1 см! Текущая длина: '+str(round(ps,2))+' см!')
+        
 @bot.message_handler(commands=['id'])
 def iddd(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.reply_to_message!=None:
         user=m.reply_to_message.from_user
         bot.send_message(m.chat.id, 'id выбранного пользователя:\n'+'`'+str(user.id)+'`',reply_to_message_id=m.message_id,parse_mode='markdown')
@@ -50,15 +65,22 @@ def iddd(m):
 
 @bot.message_handler(commands=['chatid'])
 def chatid(m):
-    print('chatid '+str(m.chat.id))
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
+    bot.send_message(m.chat.id, 'Айди чата: `'+str(m.chat.id)+'`', parse_mode='markdown')
+    
     
         
 @bot.message_handler(commands=['donate'])
 def donatemes(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, 'Если вам нравится бот и вы хотите поддержать разработчика, переводите деньги на карту:\n`5336 6900 5562 4037`\nЗаранее благодарю)', parse_mode='markdown')
 
 @bot.message_handler(commands=['removedailyuser'])
 def removedailyu(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     pass
     x=bot.get_chat_member(m.chat.id, m.from_user.id)
     if 'administrator' in x.status or 'creator' in x.status or m.from_user.id==441399484:
@@ -126,6 +148,8 @@ def sendmesssss(message):
 
 @bot.message_handler(commands=['elita']) 
 def elit(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.from_user.id in elita:
         Kb = types.ReplyKeyboardMarkup()
         Kb.add(types.KeyboardButton("Член"))
@@ -150,6 +174,8 @@ def elit(m):
             
 @bot.message_handler(commands=['stoyak'])
 def biggest(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.from_user.id!=m.chat.id:
         x=idgroup.find_one({'id':m.chat.id})
         if x!=None:
@@ -214,6 +240,8 @@ def turn3(id):
     
 @bot.message_handler(commands=['topchlens'])
 def topchlen(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=idgroup.find_one({'id':m.chat.id})
     if x!=None:
         text=''
@@ -248,6 +276,8 @@ def topchlen(m):
     
 @bot.message_handler(commands=['dailychlenreg'])
 def dailyr(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.from_user.id!=m.chat.id:
         x=idgroup.find_one({'id':m.chat.id})
         if x!=None:
@@ -271,11 +301,15 @@ def dailyr(m):
 
 @bot.message_handler(commands=['usecoins'])
 def usecoins(m):
+  if message.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
     
     
 @bot.message_handler(commands=['mysize'])
 def size(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id':m.from_user.id})
     try:
         sredn=x['summ']/x['kolvo']
@@ -292,6 +326,8 @@ def size(m):
     
 @bot.message_handler(commands=['me'])
 def mme(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id': m.from_user.id})
     try:
      bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. За 5 вы можете купить питомца! (Команда /buypet).')
@@ -300,36 +336,21 @@ def mme(m):
         bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное, вы ни разу не измеряли член! (напишите боту "член")')
         bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное, вы ни рару не измеряли член!')                                                                                                                               
                                                                  
-                                                                  
-@bot.message_handler(commands=['challenge'])
-def challenge(m):
-    if m.from_user.id==441399484:
-      if len(ch)<1:
-        bot.send_message(m.chat.id, 'Конкурс за приз - кнопки внутри членомера - начинается! Жмите /joen для присоединения!')
-        ch.append(m.chat.id)
-                
-                
 
-@bot.message_handler(commands=['joen'])
-def joen(m):
-    if m.chat.id in ch and m.from_user.id not in members:
-        if m.chat.id==ch[0]:
-            members.append(m.from_user.id)
-            
-            
-@bot.message_handler(commands=['begin'])
-def begin(m):
-    pass
                 
 @bot.message_handler(commands=['channel'])
 def channel(message):
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
                      
 
 @bot.message_handler(commands=['start'])
 def startms(message):
-  if message.from_user.id==message.chat.id:
-    bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
+    if message.from_user.id==message.chat.id:
+      bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
 
 
 @bot.message_handler(commands=['info'])
@@ -350,11 +371,15 @@ def info(message):
    
 @bot.message_handler(commands=['ti_ctochlen'])
 def ticto(message):
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.from_user.id, 'Умеет менять размер члинуса')
                      
         
 @bot.message_handler(commands=['name'])
 def name(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     player=iduser.find_one({'id':m.from_user.id})
     if player!=None:
         x=m.text.split('/name ')
@@ -374,297 +399,17 @@ def name(m):
             
         
         
-        
-
-@bot.message_handler(commands=['fight'])
-def fight(m):
-  if m.from_user.id==441399484 or m.from_user.id==314238081:
-    if m.chat.id>0:
-      z=iduser.find_one({'id':m.from_user.id})
-      if z!=None:
-        if z['pet']!=None:
-          if z['pet']['name']!=None:
-            t=threading.Timer(300, noplayers, args=[m.from_user.id])
-            t.start()
-            bot.send_message(m.chat.id, 'Вы встали в очередь на поединок питомцев! Ожидайте игроков...')
-            wait.append(m.from_user.id)
-            player=iduser.find_one({'id':m.from_user.id})
-            for id in wait:
-                if id!=m.from_user.id:
-                    x=iduser.find_one({'id':id})
-                    if x['pet']['level']==player['pet']['level']: 
-                        name1=player['pet']['name']
-                        name2=x['pet']['name']
-                        try:
-                            wait.remove(player['id'])
-                        except:
-                            pass
-                        try:
-                            wait.remove(x['id'])
-                        except:
-                            pass
-                        gofight(player['id'], x['id'], name1, name2)                
-          else:
-            bot.send_message(m.from_user.id, 'Сначала дайте питомцу имя! (команда /name)') 
-        else:
-            bot.send_message(m.from_user.id, 'У вас нет питомца!')
-      else:
-        bot.send_message(m.from_user.id, 'Сначала напишите боту "член"!')
-    else:
-       bot.send_message(m.from_user.id, 'Эту команду можно использовать только в личных сообщениях бота!') 
-  else:
-    bot.send_message(m.chat.id, 'В будущих обновлениях...')
-
-@bot.message_handler(commands=['cancel'])
-def cancel(m):
-    try:
-        wait.remove(m.from_user.id)
-        bot.send_message(m.from_user.id, 'Вы  были успешно удалены из очереди.') 
-    except:
-        pass
-    
-    
-@bot.callback_query_handler(func=lambda call:True)
-def inline(call):
-    ataka=0
-    user=call.from_user.id
-    if call.data=='atk+1':
-        ataka=1
-    elif call.data=='atk+2':
-        ataka=2
-    elif call.data=='atk+5':
-        ataka=5
-    elif call.data=='atk+10':
-        ataka=10
-    if ataka>0:
-        x=0
-        for ids in play:
-            if ids['id1']['id']==user:
-                x=1
-                y=ids['id1']
-            if ids['id2']['id']==user:
-                x=1
-                y=ids['id2']
-        if x==1:
-            if y['attackselect']==1:
-                if y['attack']>=ataka:
-                    y['attackround']+=ataka
-                    y['attack']-=ataka
-                    Keyboard=types.InlineKeyboardMarkup()
-                    Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
-                    Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
-                    Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='atk+5'))
-                    Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='atk+10'))
-                    Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='endattack'))
-                    medit('Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: '+str(y['attackround']),
-                    call.from_user.id,
-                    call.message.message_id, reply_markup=Keyboard)
-                else:
-                    bot.send_message(user, 'У вас недостаточно атаки!')
-            else:
-                bot.send_message(user, 'Нет!')
-                
-                
-    defence=0
-    user=call.from_user.id
-    if call.data=='def+1':
-        defence=1
-    elif call.data=='def+2':
-        defence=2
-    elif call.data=='def+5':
-        defence=5
-    elif call.data=='def+10':
-        defence=10
-    if defence>0:
-        x=0
-        for ids in play:
-            if ids['id1']['id']==user:
-                x=1
-                y=ids['id1']
-            if ids['id2']['id']==user:
-                x=1
-                y=ids['id2']
-        if x==1:
-            if y['defenceselect']==1:
-                if y['defence']>=defence:
-                    y['defenceround']+=defence
-                    y['defence']-=defence
-                    Keyboard=types.InlineKeyboardMarkup()
-                    Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='def+1'))
-                    Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='def+2'))
-                    Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='def+5'))
-                    Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='def+10'))
-                    Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='enddefence'))
-                    medit('Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: '+str(y['defenceround']),
-                    call.from_user.id,
-                    call.message.message_id, reply_markup=Keyboard)
-                else:
-                    bot.send_message(user, 'У вас недостаточно защиты!')
-            else:
-                bot.send_message(user, 'Нет!')
-                    
-    elif defence==0:
-        if call.data=='endattack':
-          x=0
-          for ids in play:
-            if ids['id1']['id']==user:
-                x=1
-                y=ids['id1']
-            if ids['id2']['id']==user:
-                x=1
-                y=ids['id2']
-          if x==1:
-            if y['attackselect']==1:
-                y['attackselect']=0
-                y['defenceselect']=1
-                Keyboard=types.InlineKeyboardMarkup()
-                Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='def+1'))
-                Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='def+2'))
-                Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='def+5'))
-                Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='def+10'))
-                Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='enddef'))
-                medit('Теперь выставьте количество защиты, которое хотите поставить в этом ходу. Текущая защита: 0', call.from_user.id, call.message.message_id, reply_markup=Keyboard)
-                        
-    else:
-        if call.data=='enddefence':
-          x=0
-          for ids in play:
-            if ids['id1']['id']==user:
-                x=1
-                y=ids['id1']
-            if ids['id2']['id']==user:
-                x=1
-                y=ids['id2']
-          if x==1:
-            try:
-                y['timer'].cancel()
-            except:
-                pass
-            ready(call.from_user.id)
-
-
-            
-
-            
-            
+     
             
 def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdown'):
     return bot.edit_message_text(chat_id=chat_id,message_id=message_id,text=message_text,reply_markup=reply_markup,
                                  parse_mode=parse_mode)
 
-
-def gofight(id1, id2, name1, name2):
-    player1=iduser.find_one({'id':id1})
-    player2=iduser.find_one({'id':id2})
-    player1['pet']['attack']=player1['pet']['maxattack']
-    player1['pet']['defence']=player1['pet']['maxdefence']
-    player2['pet']['attack']=player2['pet']['maxattack']
-    player2['pet']['defence']=player2['pet']['maxdefence']
-    play.append(creategame(id1, id2, player1, player2))
-    bot.send_message(id1, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name2+'"'+'! Его уровень: '+str(player2['pet']['level']))
-    bot.send_message(id2, 'Битва начинается! Ваш питомец дерётся с питомцем, которого зовут '+'"'+name1+'"'+'! Его уровень: '+str(player1['pet']['level']))
-    xod(id1, id2, name1, name2, player1, player2)
-    
-    
-    
-def xod(id1, id2, name1, name2, player1, player2):
-    if player1['pet']['skill']==None:
-        skill1='Отсутствует'
-    else:
-        skill1=player1['pet']['skill']
-        
-    if player2['pet']['skill']==None:
-        skill2='Отсутствует'
-    else:
-        skill2=player2['pet']['skill']
-    bot.send_message(id1, 'Информация о вашем питомце:\n'+'❤️ХП: '+str(player1['pet']['hp'])+
-                     '\n⚔️Атака: '+str(player1['pet']['attack'])+'/'+str(player1['pet']['maxattack'])+'\n'+
-                     '⚡️Реген атаки: '+str(player1['pet']['regenattack'])+'\n'+
-                    '🛡Защита: '+str(player1['pet']['defence'])+'/'+str(player1['pet']['maxdefence'])+'\n'+
-                     '🔵Реген защиты: '+str(player1['pet']['regendefence'])+'\n'+
-                     '🔺Скилл: '+skill1       
-                    )
-    
-    bot.send_message(id2, 'Информация о вашем питомце:\n'+'❤️ХП: '+str(player2['pet']['hp'])+
-                     '\n⚔️Атака: '+str(player2['pet']['attack'])+'/'+str(player2['pet']['maxattack'])+'\n'+
-                     '⚡️Реген атаки: '+str(player2['pet']['regenattack'])+'\n'+
-                    '🛡Защита: '+str(player2['pet']['defence'])+'/'+str(player2['pet']['maxdefence'])+'\n'+
-                     '🔵Реген защиты: '+str(player2['pet']['regendefence'])+'\n'+
-                     '🔺Скилл: '+skill2       
-                    )
-    for ids in play:
-            if ids['id1']['id']==id1:
-                ids['id1']['attackselect']=1
-            if ids['id2']['id']==id1:
-                ids['id2']['attackselect']=1
-            if ids['id1']['id']==id2:
-                ids['id1']['attackselect']=1
-            if ids['id2']['id']==id2:
-                ids['id2']['attackselect']=1
-    t=threading.Timer(60, noready, args=[ids])
-    t.start()
-    ids['timer']=t
-    Keyboard=types.InlineKeyboardMarkup()
-    Keyboard.add(types.InlineKeyboardButton(text='+1', callback_data='atk+1'))
-    Keyboard.add(types.InlineKeyboardButton(text='+2', callback_data='atk+2'))
-    Keyboard.add(types.InlineKeyboardButton(text='+5', callback_data='atk+5'))
-    Keyboard.add(types.InlineKeyboardButton(text='+10', callback_data='atk+10'))
-    Keyboard.add(types.InlineKeyboardButton(text='Окончить выбор', callback_data='endattack'))
-    msg1=bot.send_message(id1, 'Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: 0', reply_markup=Keyboard)  
-    msg2=bot.send_message(id2, 'Теперь выставьте количество атаки, которое хотите поставить в этом ходу. Текущая атака: 0', reply_markup=Keyboard)
-    
-
-def ready(id):
-    for ids in play:
-            if ids['id1']['id']==id:
-                ids['id1']['ready']=1
-            if ids['id2']['id']==id:
-                ids['id2']['ready']=1
-            if ids['id1']['ready']==1 and ids['id2']['ready']==1:
-                endturn(ids)
-
-
-def noready(game):
-    endturn(game)
-                
-
-def endturn(game):#############################################################  ENDTURN
-    text1=''
-    text2=''
-    player1=game['id1']
-    player2=game['id2']
-    damage1=player1['attackround']
-    damage2=player2['attackround']
-    defence1=player1['defenceround']
-    defence2=player2['defenceround']
-    losehp1=damage2-defence1
-    if losehp1<0:
-        losehp1=0
-    player1['hp']-=losehp1
-    text1+=player1['name']+':\n'+'Выставленная атака: '+str(player1['attackround'])+'\nВыставленная защита: '+str(player1['defenceround'])+'\nПолученный урон: '+str(losehp1)
-    
-        
-    losehp2=dagame1-defence2
-    if losehp2<0:
-        losehp2=0
-    player2['hp']-=losehp2
-    text2+=player2['name']+':\n'+'Выставленная атака: '+str(player2['attackround'])+'\nВыставленная защита: '+str(player2['defenceround'])+'\nПолученный урон: '+str(losehp2)
-        
-        
-    bot.send_message(player1['id'], 'Результаты хода:\n\n'+text1+'\n'+text2)
-    bot.send_message(player2['id'], 'Результаты хода:\n\n'+text1+'\n'+text2)
-        
-        
-        
-def noplayers(id):
-    try:
-        wait.remove(id)
-        bot.send_message(id, 'Вы ожидали оппонента 5 минут и были удалены из очереди! Попробуйте позже, когда будут ещё бойцы.')
-    except:
-        pass
         
 @bot.message_handler(commands=['buypet'])
 def buypet(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id':m.from_user.id})
     if x!=None:
       if x['pet']==None:
@@ -684,6 +429,8 @@ def buypet(m):
         
 @bot.message_handler(commands=['pethelp'])
 def pethelp(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, 'Питомец вам нужен для участия в боях. Чтобы поучаствовать, нужно написать боту в личные сообщения команду /fight.\n'+
                      'У питомца есть ХП, Атака, Защита, Регенерация атаки, Регенерация защиты. '+
                      'Каждый ход вы выбираете, сколько атаки и сколько защиты поставить на раунд... И ваш питомец сражается своим членом! Каждая поставленная единица защиты заблокирует единицу атаки соперника.\n'+
@@ -696,10 +443,14 @@ def pethelp(m):
                              
 @bot.message_handler(commands=['commands'])
 def commessage(message):
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, 'Все фразы, связанные со словом "член"')
         
 @bot.message_handler(commands=['feedback'])
 def feedback(message):
+  if message.from_user.id not in ban:
+    incmsg(message.from_user.id, message.chat.id, message.message_id)
     if message.from_user.username!=None:
       bot.send_message(314238081, message.text+"\n"+'@'+message.from_user.username)
       bot.send_message(message.chat.id, 'Сообщение отправлено!')
@@ -710,7 +461,7 @@ def feedback(message):
 
 texts=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
       'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
-       'Член в астрале', 'Прислоните член к экрану, я не вижу'
+       'Член в астрале', 'Прислоните член к экрану, я не вижу', 'вы половой гигант!'
       ]
 
 def createchat(chatid):
@@ -737,19 +488,13 @@ def chlenomer(message):
       if idgroup.find_one({'id':message.chat.id}) is None:
         idgroup.insert_one(createchat(message.chat.id))
       if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
-      idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id)+'.name':m.from_user.first_name,'topdaily.'+str(m.from_user.id)+'.username':m.from_user.username}})
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0})
+      gr=idgroup.find_one({'id':m.chat.id})
+      if gr['topdaily'][message.from_user.id]['name']!=message.from_user.first_name or gr['topdaily'][message.from_user.id]['username']!=message.from_user.username:
+        idgroup.update_one({'id':message.chat.id},{'$set':{'topdaily.'+str(message.from_user.id)+'.name':message.from_user.first_name,'topdaily.'+str(message.from_user.id)+'.username':message.from_user.username}})
     elif message.chat.id>0:
         if iduser.find_one({'id':message.from_user.id}) is None:
-            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None})
-        x=idgroup.find_one({'id':message.chat.id})
-        if x!=None:
-          try:
-            z=x['topdaily'][message.from_user.id]
-            if z!=None:
-                idgroup.update_one({'id':message.chat.id},{'$set':{'topdaily.'+message.from_user.id+'.name':message.from_user.first_name}})
-          except:
-            pass
+            iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0})
                                           
     spisok=['член','хер','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
            'дроч']
@@ -758,23 +503,17 @@ def chlenomer(message):
         if ids in m.text.lower():
             tr=1
     if tr==1:
-        print(message.chat.id)
+        incmsg(message.from_user.id, message.chat.id, message.message_id)
         mega=random.randint(1,100)
         ultramega=random.randint(1,1000)
         hyperultramega=random.randint(1, 10000)
         win=random.randint(1, 100000)
-        xxx=0
-        listtt=[]
-        while xxx<=100:
-            listtt.append(xxx)
-            xxx+=1
-        chlen=int(random.choice(listtt))
+        chlen=random.randint(1,100)
         mm=random.randint(0,9)
         randomvoice=random.randint(1,100)
         t=0
         if randomvoice>90:
-              chlen = random.randint(1, 6)
-              text=texts[chlen-1]
+              text=random.choice(texts)
               t=1
         else:
             replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
@@ -806,40 +545,15 @@ def chlenomer(message):
             except:
               pass
         
-
- 
-def creategame(id1, id2, player1, player2):
-            return{
-                'timer':None,
-                'id1':{'id':id1,
-                       'attackselect':0,
-                       'defenceselect':0,
-                       'maxattack':player1['pet']['maxattack'],
-                       'maxdefence':player1['pet']['maxdefence'],
-                       'attack':player1['pet']['maxattack'],
-                       'defence':player1['pet']['maxdefence'],
-                       'attackround':0,
-                       'defenceround':0,
-                       'ready':0,
-                       'name':player1['pet']['name']
-                      },
-                'id2':{
-                    'id':id2,
-                    'attackselect':0,
-                    'defenceselect':0,
-                    'maxattack':player2['pet']['maxattack'],
-                    'maxdefence':player2['pet']['maxdefence'],
-                    'attack':player2['pet']['maxattack'],
-                    'defence':player2['pet']['maxdefence'],
-                    'attackround':0,
-                    'defenceround':0,
-                    'ready':0,
-                    'name':player2['pet']['name']
-                     }
-            }
             
-            
-            
+def incmsg(id, chatid, mid):
+    users.update_one({'id':id},{'$inc':{'msgcount':1}})
+    if msgcount>=20:
+        bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
+        ban.append(id)
+        
+    
+    
 def petcreate():
     return{
         'name':None,
@@ -863,6 +577,8 @@ def petcreate():
 def dailyroll():
    t=threading.Timer(60, dailyroll)
    t.start()
+   users.update_many({},{'$set':{'msgcount':0}})
+   ban=[]
    x=time.ctime()
    x=x.split(" ")
    for ids in x:
@@ -887,28 +603,23 @@ def dailyroll():
          idgroup.update_many({}, {'$set':{'todaywinner':'Поиск осуществляется в данный момент'}})
     
     
-if True:
-    dailyroll()
 
-if True:
- try:
-   print('7777')
-   bot.polling(none_stop=True,timeout=600)
- except:
-        print('!!! READTIME OUT !!!')           
-        bot.stop_polling()
-        time.sleep(1)
-        check = True
-        while check==True:
-          try:
-            bot.polling(none_stop=True,timeout=1)
-            print('checkkk')
-            check = False
-          except:
-            time.sleep(1)                    
+dailyroll()
+
+print('7777')
+
+def poll():
+    try:
+        bot.polling(none_stop=True,timeout=600)  
+    except:
+        try:
+            bot.stop_polling()
+        except:
+            pass
+        poll()
 
 
-
+poll()
 
 
 
