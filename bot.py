@@ -32,7 +32,7 @@ bot = telebot.TeleBot(token)
 writed=[
 ]
 massive=['Хер','хер','Член','член','Хуй','хуй']
-elita=[441399484, 55888804, 314238081]
+elita=[]
 
 @bot.message_handler(commands=['update'])
 def upddd(m):
@@ -581,7 +581,7 @@ def dailyroll():
    print('started')
    iduser.update_many({},{'$set':{'msgcount':0}})
    print('finished')
-   ban=[]
+   ban.clear()
    x=time.ctime()
    x=x.split(" ")
    for ids in x:
