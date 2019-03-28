@@ -298,7 +298,7 @@ def dailyr(m):
 
 @bot.message_handler(commands=['usecoins'])
 def usecoins(m):
-  if message.from_user.id not in ban:
+  if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
     
