@@ -547,7 +547,8 @@ def chlenomer(message):
             
 def incmsg(id, chatid, mid):
     iduser.update_one({'id':id},{'$inc':{'msgcount':1}})
-    if msgcount>=20:
+    user=iduser.find_one({'id':id})
+    if user['msgcount']>=20:
         bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
         ban.append(id)
         
