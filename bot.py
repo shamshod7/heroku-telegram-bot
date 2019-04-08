@@ -24,7 +24,8 @@ members=[]
 play=[]
 
 
-
+msgcount=0
+pods4et=0
 
 
 token = os.environ['TELEGRAM_TOKEN']
@@ -40,6 +41,24 @@ def upddd(m):
         iduser.update_many({}, {'$set':{'msgcount':0, 'penisincs':0}})
         bot.send_message(m.chat.id, 'updated')
 
+@bot.message_handler(commands=['count'])
+def counttt(m):
+    if m.from_user.id==441399484:
+        global pods4et
+        pods4et=1
+        t=threading.Timer(60, ends4et, args=[m.chat.id])
+        t.start()
+        bot.send_message(m.chat.id, 'Считаю количество сообщений за минуту.')
+        
+def ends4et(id):
+    global msgcount
+    global pods4et
+    bot.send_message(id, 'Количество сообщений за минуту: '+str(msgcount)+'.')
+    msgcount=0
+    pods4et=0
+    
+    
+    
 @bot.message_handler(commands=['globalchlen'])
 def globalpeniss(m):
     if m.from_user.id not in ban:
@@ -479,6 +498,10 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+  global msgcount
+  global pods4et
+  if pods4et==1:
+      msgcount+=1
   m=message
   if message.from_user.id not in ban and message.forward_from==None:
     if message.chat.id<0:
