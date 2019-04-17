@@ -520,7 +520,7 @@ def chlenomer(message):
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
     spisok=['член','хер','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
-           'дроч']
+           'дроч', 'писю']
     tr=0
     for ids in spisok:
         if ids in m.text.lower():
