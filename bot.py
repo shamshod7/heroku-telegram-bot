@@ -58,7 +58,17 @@ def ends4et(id):
     pods4et=0
     
     
+@bot.message_handler(commands=['mafia'])
+def mafia(m):
+    if m.from_user.id not in ban:
+        incmsg(m.from_user.id, m.chat.id, m.message_id)
+        try:
+            bot.send_message(m.from_user.id, '@mafiacw')
+        except:
+            bot.send_message(m.chat.id, 'Ссылку на чат я отправляю только в личку (не все чаты любят посторонние ссылки). Начните со мной диалог, чтобы я мог это сделать.')
     
+    
+
 @bot.message_handler(commands=['globalchlen'])
 def globalpeniss(m):
     if m.from_user.id not in ban:
