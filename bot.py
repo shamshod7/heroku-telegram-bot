@@ -42,8 +42,8 @@ def combine(m):
         try:
             x1=int(m.text.split(' ')[1])
             x2=int(m.text.split(' ')[2])
-            iduser.update_one({'id':x1},{'$inc':{'summ':users.find_one({'id':x2})['summ']}})
-            iduser.update_one({'id':x1},{'$inc':{'kolvo':users.find_one({'id':x2})['kolvo']}})
+            iduser.update_one({'id':x1},{'$inc':{'summ':iduser.find_one({'id':x2})['summ']}})
+            iduser.update_one({'id':x1},{'$inc':{'kolvo':iduser.find_one({'id':x2})['kolvo']}})
             bot.send_message(x2, 'Перенёс данные со старого аккаунта на новый!')
             bot.send_message(441399484, 'gotovo')
         except:
