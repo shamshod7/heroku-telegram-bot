@@ -35,6 +35,19 @@ writed=[
 massive=['Хер','хер','Член','член','Хуй','хуй']
 elita=[]
 
+@bot.message_handler(commands=['combine'])
+def combine(m):
+    if m.from_user.id==441399484:
+        try:
+            x1=int(m.text.split(' ')[1])
+            x2=int(m.text.split(' ')[2])
+            users.update_one({'id':x1},{'$inc':{'summ':users.find_one({'id':x2})['summ']}})
+            users.update_one({'id':x1},{'$inc':{'kolvo':users.find_one({'id':x2})['kolvo']}})
+            bot.send_message(x2, 'Перенёс данные со старого аккаунта на новый!')
+            bot.send_message(441399484, 'gotovo')
+        except:
+            bot.send_message(441399484, traceback.format_exc())
+
 @bot.message_handler(commands=['update'])
 def upddd(m):
     if m.from_user.id==441399484:
