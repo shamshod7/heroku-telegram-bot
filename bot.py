@@ -49,6 +49,20 @@ def combine(m):
         except:
             bot.send_message(441399484, traceback.format_exc())
 
+
+@bot.message_handler(commands=['add'])
+def adddsfdgeh(m):
+    if m.from_user.id==441399484:
+        try:
+            id=int(m.text.split(' ')[1])
+            iduser.update_one({'id':id},{'$inc':{'chlenocoins':int(m.text.split(' ')[2])}})
+            bot.send_message(m.chat.id, 'Членокоины добавлены!')
+        except:
+            bot.send_message(441399484, traceback.format_exc())
+            
+                                             
+            
+            
 @bot.message_handler(commands=['update'])
 def upddd(m):
     if m.from_user.id==441399484:
