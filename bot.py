@@ -17,7 +17,7 @@ idgroup=db.ids
 iduser=db.ids_people
 penis=db.penis
 
-ban=[]
+ban=[667532060]
 
 wait=[]
 ch=[]
@@ -614,7 +614,10 @@ def incmsg(id, chatid, mid):
         iduser.update_one({'id':id},{'$inc':{'msgcount':1}})
         user=iduser.find_one({'id':id})
         if user['msgcount']>=20:
-            bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
+            try:
+                bot.send_message(chatid, 'Членомер может принять максимум 20 сообщений от одного человека в минуту!', reply_to_message_id=mid)
+            except:
+                pass
             ban.append(id)
         
     
