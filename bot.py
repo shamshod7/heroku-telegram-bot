@@ -16,6 +16,9 @@ db=client.chlenomer
 idgroup=db.ids
 iduser=db.ids_people
 penis=db.penis
+pics=db.pics
+if pics.find_one({})==None:
+    pics.insert_one({'pics':[]})
 
 ban=[667532060]
 
@@ -64,9 +67,20 @@ def adddsfdgeh(m):
   
 @bot.message_handler(content_types=['photo'])
 def imgg(m):
-    bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.photo[0].file_id))
+    bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.text))
+    p=pics.find_one({})
+    if m.photo[0].file_id not in p['pics']:
+        pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
+    
 
-          
+@bot.message_handler(commands=['rpic'])
+def picc(m):
+    if m.from_user.id==197216910 or m.from_user.id==441399484:
+        p=random.choice(pics.find_one({})['pics'])
+        try:
+            bot.send_photo(m.from_user.id, p)
+        except:
+            bot.send_message(m.chat.id, 'Откройте сообщения со мной!')
             
 @bot.message_handler(commands=['update'])
 def upddd(m):
