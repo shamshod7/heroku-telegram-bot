@@ -61,7 +61,12 @@ def adddsfdgeh(m):
             bot.send_message(441399484, traceback.format_exc())
             
                                              
-            
+  
+@bot.message_handler(content_types=['photo'])
+def imgg(m):
+    bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.photo[0].file_id))
+
+          
             
 @bot.message_handler(commands=['update'])
 def upddd(m):
@@ -84,18 +89,6 @@ def ends4et(id):
     bot.send_message(id, 'Количество сообщений за минуту: '+str(msgcount)+'.')
     msgcount=0
     pods4et=0
-    
-    
-@bot.message_handler(commands=['mafia'])
-def mafia(m):
-    if m.from_user.id not in ban:
-        incmsg(m.from_user.id, m.chat.id, m.message_id)
-        try:
-            pass
-            #bot.send_message(m.from_user.id, '@mafiacw')
-        except:
-            pass
-           # bot.send_message(m.chat.id, 'Ссылку на чат я отправляю только в личку (не все чаты любят посторонние ссылки). Начните со мной диалог, чтобы я мог это сделать.')
     
     
 
