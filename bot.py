@@ -75,7 +75,7 @@ def imgg(m):
 
 @bot.message_handler(commands=['rpic'])
 def picc(m):
-    if m.from_user.id==197216910 or m.from_user.id==441399484:
+    if m.from_user.id==197216910 or m.from_user.id==441399484 or m.from_user.id==83697884:
         try:
             p=random.choice(pics.find_one({})['pics'])
         except:
