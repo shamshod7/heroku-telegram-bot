@@ -59,7 +59,7 @@ def adddsfdgeh(m):
         try:
             id=int(m.text.split(' ')[1])
             iduser.update_one({'id':id},{'$inc':{'chlenocoins':int(m.text.split(' ')[2])}})
-            bot.send_message(m.chat.id, 'Членокоины добавлены!')
+            bot.send_message(m.chat.id, "Olmoslar qo'shildi!")
         except:
             bot.send_message(441399484, traceback.format_exc())
             
@@ -396,11 +396,11 @@ def mme(m):
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id': m.from_user.id})
     try:
-     bot.send_message(m.chat.id, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. За 5 вы можете купить питомца! (Команда /buypet).')
-     bot.send_message(441399484, m.from_user.first_name+', Ваши членокоины: '+str(x['chlenocoins'])+'. Сейчас они не нужны, но следите за обновлениями - в будущем они понадобятся!')                                                                                                                                     
+     bot.send_message(m.chat.id, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")
+     bot.send_message(441399484, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
     except:
-        bot.send_message(m.chat.id, 'Упс! Какая-то ошибка! Наверное, вы ни разу не измеряли член! (напишите боту "член")')
-        bot.send_message(441399484, 'Упс! Какая-то ошибка! Наверное, вы ни рару не измеряли член!')                                                                                                                               
+        bot.send_message(m.chat.id, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz! (Botga "@ovchiuz" deb yozing)')
+        bot.send_message(441399484, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz!')                                                                                                                               
                                                                  
 
                 
