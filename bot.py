@@ -55,13 +55,13 @@ def combine(m):
 
 @bot.message_handler(commands=['add'])
 def adddsfdgeh(m):
-    if m.from_user.id==441399484:
+    if m.from_user.id==379168159:
         try:
             id=int(m.text.split(' ')[1])
             iduser.update_one({'id':id},{'$inc':{'chlenocoins':int(m.text.split(' ')[2])}})
             bot.send_message(m.chat.id, "Olmoslar qo'shildi!")
         except:
-            bot.send_message(441399484, traceback.format_exc())
+            bot.send_message(379168159, traceback.format_exc())
             
                                              
   
@@ -397,10 +397,10 @@ def mme(m):
     x=iduser.find_one({'id': m.from_user.id})
     try:
      bot.send_message(m.chat.id, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")
-     bot.send_message(441399484, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
+     bot.send_message(379168159, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
     except:
         bot.send_message(m.chat.id, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz! (Botga "@ovchiuz" deb yozing)')
-        bot.send_message(441399484, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz!')                                                                                                                               
+        bot.send_message(379168159, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz!')                                                                                                                               
                                                                  
 
                 
