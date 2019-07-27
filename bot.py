@@ -36,21 +36,21 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 writed=[
 ]
-massive=['Хер','хер','Член','член','Хуй','хуй']
+massive=['@ovchiuz','@huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
 elita=[]
 
 @bot.message_handler(commands=['combine'])
 def combine(m):
-    if m.from_user.id==441399484:
+    if m.from_user.id==379168159:
         try:
             x1=int(m.text.split(' ')[1])
             x2=int(m.text.split(' ')[2])
             iduser.update_one({'id':x2},{'$inc':{'summ':iduser.find_one({'id':x1})['summ']}})
             iduser.update_one({'id':x2},{'$inc':{'kolvo':iduser.find_one({'id':x1})['kolvo']}})
             bot.send_message(x2, 'Перенёс данные со старого аккаунта на новый!')
-            bot.send_message(441399484, 'gotovo')
+            bot.send_message(379168159, 'gotovo')
         except:
-            bot.send_message(441399484, traceback.format_exc())
+            bot.send_message(379168159, traceback.format_exc())
 
 
 @bot.message_handler(commands=['add'])
@@ -67,7 +67,7 @@ def adddsfdgeh(m):
   
 @bot.message_handler(content_types=['photo'])
 def imgg(m):
-    bot.send_photo(441399484, m.photo[0].file_id, caption=str(m.text))
+    bot.send_photo(379168159, m.photo[0].file_id, caption=str(m.text))
     p=pics.find_one({})
     if m.photo[0].file_id not in p['pics']:
         pics.update_one({},{'$push':{'pics':m.photo[0].file_id}})
@@ -75,7 +75,7 @@ def imgg(m):
 
 @bot.message_handler(commands=['rpic'])
 def picc(m):
-    if m.from_user.id==197216910 or m.from_user.id==441399484 or m.from_user.id==83697884:
+    if m.from_user.id==379168159 or m.from_user.id==441399484 or m.from_user.id==83697884:
         try:
             p=random.choice(pics.find_one({})['pics'])
         except:
@@ -87,13 +87,13 @@ def picc(m):
             
 @bot.message_handler(commands=['update'])
 def upddd(m):
-    if m.from_user.id==441399484:
+    if m.from_user.id==379168159:
         iduser.update_many({}, {'$set':{'msgcount':0, 'penisincs':0}})
         bot.send_message(m.chat.id, 'updated')
 
 @bot.message_handler(commands=['count'])
 def counttt(m):
-    if m.from_user.id==441399484:
+    if m.from_user.id==379168159:
         global pods4et
         pods4et=1
         t=threading.Timer(60, ends4et, args=[m.chat.id])
@@ -149,12 +149,12 @@ def removedailyu(m):
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     pass
     x=bot.get_chat_member(m.chat.id, m.from_user.id)
-    if 'administrator' in x.status or 'creator' in x.status or m.from_user.id==441399484:
+    if 'administrator' in x.status or 'creator' in x.status or m.from_user.id==379168159:
             chat=idgroup.find_one({'id':m.chat.id})
             try:
                 if len(m.text.split(' '))==2:
                     user=chat['topdaily'][m.text.split(' ')[1]]
-                    if user['id']!=441399484:
+                    if user['id']!=379168159:
                         idgroup.update_one({'id':chat['id']},{'$set':{'topdaily.'+str(user['id']):{'name':user['name']}}})
                         bot.send_message(m.chat.id, 'Юзер был успешно удалён из списка!')
                     else:
@@ -174,7 +174,7 @@ def removedailyu(m):
     
 @bot.message_handler(commands=['sendm'])
 def sendmes(message):
-    if message.from_user.id==441399484:
+    if message.from_user.id==379168159:
         x=idgroup.find({})
         y=iduser.find({})
         tex=message.text.split('/sendm')
@@ -192,14 +192,14 @@ def sendmes(message):
               usend+=1
             except:
                 pass
-        bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend)+'\n'+
+        bot.send_message(379168159, 'Отправлено сообщений юзерам: '+str(usend)+'\n'+
                          'Отправлено сообщений группам: '+str(gsend))
         
         
         
 @bot.message_handler(commands=['sendp'])
 def sendmesssss(message):
-    if message.from_user.id==441399484:
+    if message.from_user.id==379168159:
         y=iduser.find({})
         tex=message.text.split('/sendm')
         usend=0
@@ -209,7 +209,7 @@ def sendmesssss(message):
               usend+=1
             except:
                 pass
-        bot.send_message(441399484, 'Отправлено сообщений юзерам: '+str(usend))
+        bot.send_message(379168159, 'Отправлено сообщений юзерам: '+str(usend))
 
 
 @bot.message_handler(commands=['elita']) 
@@ -333,7 +333,7 @@ def topchlen(m):
             text='В этой группе не было проведено ни одного розыгрыша!'
         bot.send_message(m.chat.id, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
 
-        bot.send_message(441399484, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
+        bot.send_message(379168159, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
 
                 
                 
@@ -384,7 +384,7 @@ def size(m):
         sredn=0
     try:
         bot.send_message(m.chat.id, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!') 
-        bot.send_message(441399484, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!')
+        bot.send_message(379168159, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!')
     except:
         bot.send_message(m.chat.id, 'Измерьте член хотя бы 1 раз!')
                         
@@ -421,7 +421,7 @@ def startms(message):
 
 @bot.message_handler(commands=['info'])
 def info(message):
-    if message.from_user.id==441399484:
+    if message.from_user.id==379168159:
         group=0
         people=0
         x=idgroup.find({})
@@ -518,10 +518,10 @@ def feedback(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     if message.from_user.username!=None:
-      bot.send_message(314238081, message.text+"\n"+'@'+message.from_user.username)
+      bot.send_message(379168159, message.text+"\n"+'@'+message.from_user.username)
       bot.send_message(message.chat.id, 'Сообщение отправлено!')
     else:
-        bot.send_message(314238081, message.text+"\n"+'@'+'None')
+        bot.send_message(379168159, message.text+"\n"+'@'+'None')
         bot.send_message(message.chat.id, 'Сообщение отправлено!')
 
 
