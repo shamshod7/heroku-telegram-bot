@@ -439,7 +439,7 @@ def info(message):
 def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)   
-    bot.send_message(message.chat.id, str(random.choice('Член в астрале', 'Прислоните член к экрану, я не вижу'))
+    bot.send_message(message.chat.id, 'Член в астрале' or 'Прислоните член к экрану, я не вижу')
                      
         
 @bot.message_handler(commands=['name'])
