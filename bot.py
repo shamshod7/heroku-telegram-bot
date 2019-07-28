@@ -83,7 +83,7 @@ def picc(m):
         try:
             bot.send_photo(m.from_user.id, p)
         except:
-            bot.send_message(m.chat.id, 'Откройте сообщения со мной!')
+            bot.send_message(m.chat.id, 'Xatni men bilan oching!')
             
 @bot.message_handler(commands=['update'])
 def upddd(m):
@@ -98,12 +98,12 @@ def counttt(m):
         pods4et=1
         t=threading.Timer(60, ends4et, args=[m.chat.id])
         t.start()
-        bot.send_message(m.chat.id, 'Считаю количество сообщений за минуту.')
+        bot.send_message(m.chat.id, 'Bir minut davomidagi xatlar sanayabman.')
         
 def ends4et(id):
     global msgcount
     global pods4et
-    bot.send_message(id, 'Количество сообщений за минуту: '+str(msgcount)+'.')
+    bot.send_message(id, 'Bir minut davomidagi xatlar soni: '+str(msgcount)+'.')
     msgcount=0
     pods4et=0
     
@@ -252,19 +252,19 @@ def biggest(m):
             if nmb>0:
               x['dailyroll']=0
               idgroup.update_one({'id':m.chat.id},{'$set':{'dailyroll':0}})
-              bot.send_message(m.chat.id, 'Начинаю поиск по базе данных...')
+              bot.send_message(m.chat.id, 'Izlashni boshladim...')
               t=threading.Timer(2, turn2, args=[m.chat.id])
               t.start()
             else:
-              bot.send_message(m.chat.id, 'Нет ни одного зарегистрированного пользователя! Нажмите /dailychlenreg для того, '+
-                             'чтобы я добавил вас в список.')
+              bot.send_message(m.chat.id, 'Holi birorta o`yinchi ham musobaqa yozilmagan! Jadvalga yozilish uchun /menzorman '+
+                             'buyurug`ini bosing.')
           else:
-            bot.send_message(m.chat.id, 'Сегодня уже был проведён розыгрыш! Со стояком был замечен:\n\n'+x['todaywinner']+'!')
+            bot.send_message(m.chat.id, 'Bugun allaqachon musobaqa o`tkazilgan! Eng hurmati baland:\n\n'+x['todaywinner']+'!')
         else:
-            bot.send_message(m.chat.id, 'Сначала напишите в группу что-нибудь!')
+            bot.send_message(m.chat.id, 'Oldin guruhga nimadir deb yozing!')
         
 def turn2(id):
-    bot.send_message(id, 'Сканирую каждый член, не двигайтесь...')
+    bot.send_message(id, 'Har bir odamni hurmatini tekshiryabman, qimirlamang...')
     t=threading.Timer(2, turn3, args=[id])
     t.start()
     
@@ -298,9 +298,9 @@ def turn3(id):
                 idgroup.update_one({'id':id},{'$set':{'topdaily.'+str(x['topdaily'][ids]['id'])+'.currentwinstreak':0}})
           except:
             pass
-        bot.send_message(id, 'Измерения успешно проведены. В данный момент стояк можно наблюдать у пользователя:\n\n'+name+' (@'+username+')!')
+        bot.send_message(id, 'Izlash omadli yakunlandi. Hozirda eng hurmatga sazovor inson:\n\n'+name+' (@'+username+')!')
     else:
-        bot.send_message(id, 'В этой группе на ежедневный розыгрыш не зарегистрировано ни одного пользователя!')
+        bot.send_message(id, 'Ushbu guruhda musobaqa hech kim ro`yxatdan o`tmagan!')
 
     
     
@@ -330,10 +330,10 @@ def topchlen(m):
                 text+=str(z)+'. '+x['topdaily'][str(winid)]['name']+': '+str(x['topdaily'][str(winid)]['dailywins'])+'\n'
             z+=1
         if text=='':
-            text='В этой группе не было проведено ни одного розыгрыша!'
-        bot.send_message(m.chat.id, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
+            text='Ushbu guruhda biror marta ham musobaqa o`tkazilmagan!'
+        bot.send_message(m.chat.id, 'Hurmatli o`yinchilar TOP 10:\n\n'+text)
 
-        bot.send_message(379168159, 'Топ-10 пользователей, чей член больше всего раз был замечен в стоячем состоянии:\n\n'+text)
+        bot.send_message(379168159, 'Hurmatli o`yinchilar TOP 10:\n\n'+text)
 
                 
                 
@@ -356,20 +356,20 @@ def dailyr(m):
                 pass
          if p==0:
             idgroup.update_one({'id':m.chat.id},{'$set':{'topdaily.'+str(m.from_user.id):createdailyuser(m.from_user.id, m.from_user.first_name,m.from_user.username)}})
-            bot.send_message(m.chat.id, 'Вы успешно зарегистрировались!')
+            bot.send_message(m.chat.id, 'Siz musobaqaga omadli yozildingiz!')
          else:
-            bot.send_message(m.chat.id, 'Ты уже в игре!')
+            bot.send_message(m.chat.id, 'Siz allaqachon o`yinga yozilgansiz!')
         else:
-            bot.send_message(m.chat.id, "Сначала напишите в чат что-нибудь!")
+            bot.send_message(m.chat.id, "Oldin chatga nimadir deb yozing!")
     else:
-        bot.send_message(m.chat.id, 'Можно регистрироваться только в группах!')
+        bot.send_message(m.chat.id, 'Faqat guruhlardagina musobaqaga yozilish mumkin!')
 
 
 @bot.message_handler(commands=['usecoins'])
 def usecoins(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, '@petwarbot - тут можно подраться своим питомцем')
+    bot.send_message(m.chat.id, '@OvchiUz - bu yerda qurollar haqida ma`lumot olishingiz mumkin!')
     
     
 @bot.message_handler(commands=['mysize'])
@@ -383,10 +383,10 @@ def size(m):
     except:
         sredn=0
     try:
-        bot.send_message(m.chat.id, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!') 
-        bot.send_message(379168159, m.from_user.first_name+', средний размер вашего члена: '+str(sredn)+' см.\nВы измеряли член '+str(x['kolvo'])+' раз(а)!')
+        bot.send_message(m.chat.id, m.from_user.first_name+', sizning hurmatingiz o`rtacha: '+str(sredn)+'.\nSiz '+str(x['kolvo'])+' marta hurmatga sazovor bo`lgansiz!') 
+        bot.send_message(379168159, m.from_user.first_name+', sizning hurmatingiz o`rtacha: '+str(sredn)+'.\nSiz '+str(x['kolvo'])+' marta hurmatga sazovor bo`lgansiz!')
     except:
-        bot.send_message(m.chat.id, 'Измерьте член хотя бы 1 раз!')
+        bot.send_message(m.chat.id, 'Oldin hurmat qozoning!')
                         
     
     
@@ -408,7 +408,7 @@ def mme(m):
 def channel(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
-    bot.send_message(message.chat.id, 'Канал обновлений: @chlenomer')
+    bot.send_message(message.chat.id, 'Turnirlar kanali: @HuntUzb')
                      
 
 @bot.message_handler(commands=['start'])
@@ -416,7 +416,7 @@ def startms(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
     if message.from_user.id==message.chat.id:
-      bot.send_message(message.from_user.id, 'Если ты здесь, то ты наверняка хочешь измерить член! Пиши /commands, чтобы узнать, на какие слова реагирует бот')
+      bot.send_message(message.from_user.id, 'Bu yerga keldingizmi demak siz hurmatga sazovor insonsiz! /commands buyurug`i orqali barcha buyurug`larni olishiz mumkin!')
 
 
 @bot.message_handler(commands=['info'])
@@ -430,7 +430,7 @@ def info(message):
         y=iduser.find({})
         for element in y:
             people+=1
-        bot.send_message(message.from_user.id, 'Группы: '+str(group)+'\n'+'Люди: '+str(people))
+        bot.send_message(message.from_user.id, 'Guruhlar: '+str(group)+'\n'+'Odamlar: '+str(people))
         
 
 
@@ -439,7 +439,7 @@ def info(message):
 def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
-    bot.send_message(message.from_user.id, 'Умеет менять размер члинуса')
+    bot.send_message(message.from_user.id, 'Умеет менять размер члинуса', '5000км! Мужик!')
                      
         
 @bot.message_handler(commands=['name'])
