@@ -37,7 +37,7 @@ bot = telebot.TeleBot(token)
 writed=[
 ]
 massive=['ovchiuz','huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
-elita=[]
+elita=[379168159]
 
 @bot.message_handler(commands=['combine'])
 def combine(m):
@@ -125,15 +125,15 @@ def iddd(m):
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.reply_to_message!=None:
         user=m.reply_to_message.from_user
-        bot.send_message(m.chat.id, 'id выбранного пользователя:\n'+'`'+str(user.id)+'`',reply_to_message_id=m.message_id,parse_mode='markdown')
+        bot.send_message(m.chat.id, 'Tanlangan odam ID kodi:\n'+'`'+str(user.id)+'`',reply_to_message_id=m.message_id,parse_mode='markdown')
     else:
-        bot.send_message(m.chat.id, 'Чтобы узнать id пользователя, введите эту команду, ответив на его сообщение.')
+        bot.send_message(m.chat.id, 'Foydalanuvchi ID kodini aniqlash uchun uning xatiga reply qilib buyuruqni yuboring.')
 
 @bot.message_handler(commands=['chatid'])
 def chatid(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, 'Айди чата: `'+str(m.chat.id)+'`', parse_mode='markdown')
+    bot.send_message(m.chat.id, 'Chat ID kodi: `'+str(m.chat.id)+'`', parse_mode='markdown')
     
     
         
@@ -141,7 +141,7 @@ def chatid(m):
 def donatemes(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, 'Если вам нравится бот и вы хотите поддержать разработчика, переводите деньги на карту:\n`5336 6900 5562 4037`\nЗаранее благодарю)', parse_mode='markdown')
+    bot.send_message(m.chat.id, "Agarda sizga botlar yoqayotgan bo'lsa ularni rivojlantirishga yordam berishingiz mumkin. Summani quyidagi kartaga jo'natishingiz mumkin:\n`5336 6900 5562 4037`\nOldindan rahmat!)", parse_mode='markdown')
 
 @bot.message_handler(commands=['removedailyuser'])
 def removedailyu(m):
@@ -156,19 +156,19 @@ def removedailyu(m):
                     user=chat['topdaily'][m.text.split(' ')[1]]
                     if user['id']!=379168159:
                         idgroup.update_one({'id':chat['id']},{'$set':{'topdaily.'+str(user['id']):{'name':user['name']}}})
-                        bot.send_message(m.chat.id, 'Юзер был успешно удалён из списка!')
+                        bot.send_message(m.chat.id, 'User jadvaldan omadli o`chirildi!')
                     else:
-                        bot.send_message(m.chat.id, 'Вы не можете удалить администратора бота из списка!')
+                        bot.send_message(m.chat.id, 'Jadvaldan adminni chiqara olmaysiz!')
                 else:
-                    bot.send_message(m.chat.id, 'Чтобы удалить юзера из ежедневного розыгрыша, введите эту команду в таком формате:\n'+
-                                     '/removedailyuser *USERID*, где *USERID* - айди участника, которого вы хотите удалить. Взять его можно '+
-                                     'по команде /id.\n\nВНИМАНИЕ!!!\nУдалив участника из списка, вы сбросите его чатовую статистику ежедневных '+
-                                     'розыгрышей!',parse_mode='markdown')
+                    bot.send_message(m.chat.id, 'Userni musobaqadan chetlatish uchun, buyuruqni quyidagi formatda yuboring:\n'+
+                                     '/removedailyuser *USERID* \n*USERID* - foydalanuvchi id kodi. Uni '+
+                                     "/id buyurug'i orqali olishingiz mumkin.\n\nDIQQAT!!!\nO'yinchini jadvaldan chiqarish tufayli uni musobaqadagi barcha "+
+                                     'natijalarini 0 qilib yuborasiz!',parse_mode='markdown')
             except:
-                bot.send_message(m.chat.id, 'Юзер с таким id не регистрировался в этом чате!')
+                bot.send_message(m.chat.id, "Ushbu ID kodli odam ro'yhatda yo'q!")
                
     else:
-        bot.send_message(m.chat.id, 'Вы не админ чата!')
+        bot.send_message(m.chat.id, 'Siz chat admini emassiz!')
     
     
     
@@ -192,8 +192,8 @@ def sendmes(message):
               usend+=1
             except:
                 pass
-        bot.send_message(379168159, 'Отправлено сообщений юзерам: '+str(usend)+'\n'+
-                         'Отправлено сообщений группам: '+str(gsend))
+        bot.send_message(379168159, 'Xat userlarga yuborildi: '+str(usend)+'\n'+
+                         'Xat guruhlarga yuborildi: '+str(gsend))
         
         
         
@@ -209,7 +209,7 @@ def sendmesssss(message):
               usend+=1
             except:
                 pass
-        bot.send_message(379168159, 'Отправлено сообщений юзерам: '+str(usend))
+        bot.send_message(379168159, 'Xat userlarga yuborildi: '+str(usend))
 
 
 @bot.message_handler(commands=['elita']) 
