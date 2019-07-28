@@ -439,7 +439,14 @@ def info(message):
 def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
-    bot.send_message(message.from_user.id, 'Умеет менять размер члинуса', '5000км! Мужик!')
+
+textss=['Как у коня', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
+      'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
+       'Член в астрале', 'Прислоните член к экрану, я не вижу', 'вы половой гигант!'
+      ]
+    
+    texta=random.choice(textss)    
+    bot.send_message(message.chat.id, texta)
                      
         
 @bot.message_handler(commands=['name'])
