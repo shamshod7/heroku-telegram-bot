@@ -582,7 +582,7 @@ def chlenomer(message):
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
-    spisok=['@ovchiuz','@huntuz','@qopqon','@werewolfuz','@warsuz','@redwolfuz','assalomu aleykum','@Jalilov_Shamshod','uzur','hayrli kun','Salom','Rahmat','@infowerewolfuz','zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
+    spisok=['@ovchiuz','Jalilov','@qopqon','@werewolfuz','@warsuz','@redwolfuz','assalomu aleykum','@Jalilov_Shamshod','uzur','hayrli kun','Salom','Rahmat','@infowerewolfuz','zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
            '@varsuz', 'hush kebsiz']
     tr=0
     for ids in spisok:
