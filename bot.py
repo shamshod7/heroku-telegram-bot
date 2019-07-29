@@ -602,7 +602,7 @@ def chlenomer(message):
               text=random.choice(texts)
               t=1
         else:
-            replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
+            replytext=''+message.from_user.first_name+' sizning hurmatingiz: '+str(chlen)+','+str(mm)+'!'
             bot.send_message(message.chat.id, replytext)
             otvet=chlen+mm/10
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
@@ -626,7 +626,7 @@ def chlenomer(message):
             t=1
         if t==1:
             try:
-              bot.send_message(message.chat.id, message.from_user.first_name+' '+text,parse_mode='markdown')
+              bot.send_message(message.chat.id, '*'+ message.from_user.first_name +'*'+' '+text,parse_mode='markdown')
               t=0
             except:
               pass
