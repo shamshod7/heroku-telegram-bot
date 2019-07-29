@@ -143,7 +143,7 @@ def donatemes(m):
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     bot.send_message(m.chat.id, "Agarda sizga botlar yoqayotgan bo'lsa ularni rivojlantirishga yordam berishingiz mumkin. Summani quyidagi kartaga jo'natishingiz mumkin:\n`5336 6900 5562 4037`\nOldindan rahmat!)", parse_mode='markdown')
 
-@bot.message_handler(commands=['removedailyuser'])
+@bot.message_handler(commands=['natijani_ochirish'])
 def removedailyu(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -161,7 +161,7 @@ def removedailyu(m):
                         bot.send_message(m.chat.id, 'Jadvaldan adminni chiqara olmaysiz!')
                 else:
                     bot.send_message(m.chat.id, 'Userni musobaqadan chetlatish uchun, buyuruqni quyidagi formatda yuboring:\n'+
-                                     '/removedailyuser *USERID* \n*USERID* - foydalanuvchi id kodi. Uni '+
+                                     '/natijani_ochirish *USERID* \n*USERID* - foydalanuvchi id kodi. Uni '+
                                      "/id buyurug'i orqali olishingiz mumkin.\n\nDIQQAT!!!\nO'yinchini jadvaldan chiqarish tufayli uni musobaqadagi barcha "+
                                      'natijalarini 0 qilib yuborasiz!',parse_mode='markdown')
             except:
@@ -238,7 +238,7 @@ def elit(m):
     #     except:
       #      pass
             
-@bot.message_handler(commands=['stoyak'])
+@bot.message_handler(commands=['Musobaqani_boshlash'])
 def biggest(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -304,7 +304,7 @@ def turn3(id):
 
     
     
-@bot.message_handler(commands=['topchlens'])
+@bot.message_handler(commands=['top'])
 def topchlen(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -340,7 +340,7 @@ def topchlen(m):
                         
                        
     
-@bot.message_handler(commands=['dailychlenreg'])
+@bot.message_handler(commands=['royhatga_yozilish])
 def dailyr(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -365,7 +365,7 @@ def dailyr(m):
         bot.send_message(m.chat.id, 'Faqat guruhlardagina musobaqaga yozilish mumkin!')
 
 
-@bot.message_handler(commands=['usecoins'])
+@bot.message_handler(commands=['olmosni_ishlatish'])
 def usecoins(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -404,7 +404,7 @@ def mme(m):
                                                                  
 
                 
-@bot.message_handler(commands=['channel'])
+@bot.message_handler(commands=['kanal'])
 def channel(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
@@ -538,9 +538,9 @@ def feedback(message):
         bot.send_message(message.chat.id, 'Xat yuborildi!')
 
 
-texts=['hurmatingiz - Qirollardek!', 'hurmatingiz - Osmondek!', 'hurmatingiz - Bir tiyin!',
-      'hurmatingiz - Mahalla Kachogidek!', 'hurmatingiz - Alkashdek!', 'hurmatingiz - minusga qarab ketmoqda!', 'hurmatingiz - Nokia telefonidek!',
-       'hurmatingiz - Habib Nurmagamedovdek!', 'hurmatingiz - qandayligini tog`risi bilmayman!', 'hurmatingiz - Juda baland!!'
+texts=['hurmatingiz - *Qirollardek!*', 'hurmatingiz - *Osmondek!*', 'hurmatingiz - *Bir tiyin!*',
+      'hurmatingiz - *Mahalla oqsoqolidek!*', 'hurmatingiz - *Alkashdek!*', 'hurmatingiz - *minusga qarab ketmoqda!*', 'hurmatingiz - *Nokia telefonidek!*',
+       'hurmatingiz - *Habib Nurmagamedovdek!*', 'hurmatingiz - *qandayligini tog`risi bilmayman!*', 'hurmatingiz - *Juda baland!*'
       ]
 
 def createchat(chatid):
@@ -582,8 +582,8 @@ def chlenomer(message):
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
-    spisok=['@ovchiuz','@huntuz','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
-           'дроч', 'писю']
+    spisok=['@ovchiuz','@huntuz','@qopqon','@werewolfuz','@warsuz','@redwolfuz','Assalomu Aleykum','@Jalilov_Shamshod','Uzur','Hayrli kun','Salom','Rahmat','@infowerewolfuz','Zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
+           '@varsuz', 'Hush kebsiz']
     tr=0
     for ids in spisok:
         if ids in m.text.lower():
@@ -626,7 +626,7 @@ def chlenomer(message):
             t=1
         if t==1:
             try:
-              bot.send_message(message.chat.id, message.from_user.first_name+' '+text)
+              bot.send_message(message.chat.id, message.from_user.first_name+' '+text,parse_mode='markdown')
               t=0
             except:
               pass
