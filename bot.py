@@ -440,13 +440,18 @@ textss=['hurmatingiz - Qirollardek!', '5000км! Мужик!', '1 миллиме
       ]
 
       
-@bot.message_handler(commands=['ti_ctochlen'])
-def ticto(message):
-  if message.from_user.id not in ban:
-    incmsg(message.from_user.id, message.chat.id, message.message_id)             
-        text=random.choice(textss)
-        try:        
-        bot.send_message(message.chat.id, message.from_user.first_name+', '+text)                
+        
+@bot.message_handler(commands=['idd'])
+def idddd(m):
+  if m.from_user.id not in ban:
+    incmsg(m.from_user.id, m.chat.id, m.message_id)
+    if m.reply_to_message!=None:
+        user=m.reply_to_message.from_user
+        text=random.choice(textss)        
+        bot.send_message(m.chat.id, 'Tanlangan odam ID kodi:\n'+'`'+str(user.id)+'`'+text,reply_to_message_id=m.message_id,parse_mode='markdown')
+    else:
+        bot.send_message(m.chat.id, 'Foydalanuvchi ID kodini aniqlash uchun uning xatiga reply qilib buyuruqni yuboring.')
+              
         
 @bot.message_handler(commands=['name'])
 def name(m):
