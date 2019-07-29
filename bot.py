@@ -434,13 +434,21 @@ def info(message):
         
 
 
+textss=['hurmatingiz - Qirollardek!', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
+      'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
+       'Член в астрале', 'Прислоните член к экрану, я не вижу', 'вы половой гигант!'
+      ]
+
       
 @bot.message_handler(commands=['ti_ctochlen'])
 def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)   
-    bot.send_message(message.chat.id, 'Член в астрале' or 'Прислоните член к экрану, я не вижу')
-                     
+              texta=random.choice(textss)
+              t=1
+        if t==1:
+            try:
+              bot.send_message(message.chat.id, message.from_user.first_name+', '+texta)                
         
 @bot.message_handler(commands=['name'])
 def name(m):
