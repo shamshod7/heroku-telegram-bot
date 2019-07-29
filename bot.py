@@ -448,9 +448,9 @@ def idddd(m):
     if m.reply_to_message!=None:
         user=m.reply_to_message.from_user
         text=random.choice(textss)        
-        bot.send_message(m.chat.id, 'Tanlangan odam ID kodi:\n'+'`'+str(user.id)+'`'+text,reply_to_message_id=m.message_id,parse_mode='markdown')
+        bot.send_message(m.chat.id, text,reply_to_message_id=m.message_id,parse_mode='markdown')
     else:
-        bot.send_message(m.chat.id, 'Foydalanuvchi ID kodini aniqlash uchun uning xatiga reply qilib buyuruqni yuboring.')
+        bot.send_message(m.chat.id, 'Gapni rost yoki yolg`onligi bilish uchun o`sha xatga reply qilib buyurug`qni yuboring.')
               
         
 @bot.message_handler(commands=['name'])
