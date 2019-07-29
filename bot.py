@@ -397,7 +397,7 @@ def mme(m):
     x=iduser.find_one({'id': m.from_user.id})
     try:
      bot.send_message(m.chat.id, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")
-     bot.send_message(379168159, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
+     bot.send_message(379168159, m.from_user.first_name+username+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
     except:
         bot.send_message(m.chat.id, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz! (Botga "@ovchiuz" deb yozing)')
         bot.send_message(379168159, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz!')                                                                                                                               
