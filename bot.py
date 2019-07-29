@@ -37,7 +37,7 @@ bot = telebot.TeleBot(token)
 writed=[
 ]
 massive=['@ovchiuz','@huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
-elita=[379168159]
+elita=[]
 
 #@bot.message_handler(commands=['combine'])
 #def combine(m):
