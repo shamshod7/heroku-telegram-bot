@@ -444,7 +444,8 @@ textss=['hurmatingiz - Qirollardek!', '5000км! Мужик!', '1 миллиме
 def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)   
-              texta=random.choice(textss)
+        if randomvoice>1:           
+        texta=random.choice(textss)
               t=1
         if t==1:
             try:
