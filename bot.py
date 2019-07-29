@@ -539,7 +539,7 @@ def feedback(message):
 
 
 texts=['hurmatingiz - *Qirollardek👑!*', 'hurmatingiz - *Osmondek🌌!*', 'hurmatingiz - *Bir tiyin🤑!*',
-      'hurmatingiz - *Mahalla oqsoqolidek👴🏻!*', 'hurmatingiz - *Alkashdek🍺!*', 'hurmatingiz - *minusga qarab ketmoqda🥀!*', 'hurmatingiz - *Nokia telefonidek☎️!*',
+      'hurmatingiz - *Mahalla oqsoqolidek👴🏻!*', 'hurmatingiz - *Alkashdek🍺!*', 'hurmatingiz - *minusdan ham past🥀!*', 'hurmatingiz - *Nokia telefonidek☎️!*',
        'hurmatingiz - *Habib Nurmagamedovdek💂🏻!*', 'hurmatingiz - *qandayligini tog`risi bilmayman🤖!*', 'hurmatingiz - *Juda baland😲!*'
       ]
 
@@ -582,8 +582,8 @@ def chlenomer(message):
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
-    spisok=['@ovchiuz','@huntuz','@qopqon','@werewolfuz','@warsuz','@redwolfuz','Assalomu Aleykum','@Jalilov_Shamshod','Uzur','Hayrli kun','Salom','Rahmat','@infowerewolfuz','Zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
-           '@varsuz', 'Hush kebsiz']
+    spisok=['@ovchiuz','@huntuz','@qopqon','@werewolfuz','@warsuz','@redwolfuz','assalomu aleykum','@Jalilov_Shamshod','uzur','hayrli kun','Salom','Rahmat','@infowerewolfuz','zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
+           '@varsuz', 'hush kebsiz']
     tr=0
     for ids in spisok:
         if ids in m.text.lower():
