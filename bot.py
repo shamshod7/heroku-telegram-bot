@@ -396,7 +396,7 @@ def mme(m):
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id': m.from_user.id})
     try:
-     bot.send_message(m.chat.id, '*'+m.from_user.first_name+' sizning olmoslaringiz💎: '+str(x['chlenocoins'])+". 6ta olmos yig'a olsangiz qurol olishingiz mumkin.*",parse_mode='markdown')
+     bot.send_message(m.chat.id, '*'+m.from_user.first_name+' sizning olmoslaringiz: '+str(x['chlenocoins'])+"💎.\n6ta olmos yig'a olsangiz qurol olishingiz mumkin.*",parse_mode='markdown')
      bot.send_message(379168159, m.from_user.first_name+' sizning olmoslaringiz: '+str(x['chlenocoins'])+". 6ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
     except:
         bot.send_message(m.chat.id, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz! (Botga "@ovchiuz" deb yozing)')
