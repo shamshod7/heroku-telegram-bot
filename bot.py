@@ -445,6 +445,7 @@ def ticto(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)             
         text=random.choice(textss)
+        try:        
         bot.send_message(message.chat.id, message.from_user.first_name+', '+text)                
         
 @bot.message_handler(commands=['name'])
