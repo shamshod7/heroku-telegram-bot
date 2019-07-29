@@ -36,21 +36,21 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 writed=[
 ]
-massive=['ovchiuz','huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
+massive=['@ovchiuz','@huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
 elita=[379168159]
 
-@bot.message_handler(commands=['combine'])
-def combine(m):
-    if m.from_user.id==379168159:
-        try:
-            x1=int(m.text.split(' ')[1])
-            x2=int(m.text.split(' ')[2])
-            iduser.update_one({'id':x2},{'$inc':{'summ':iduser.find_one({'id':x1})['summ']}})
-            iduser.update_one({'id':x2},{'$inc':{'kolvo':iduser.find_one({'id':x1})['kolvo']}})
-            bot.send_message(x2, 'Перенёс данные со старого аккаунта на новый!')
-            bot.send_message(379168159, 'gotovo')
-        except:
-            bot.send_message(379168159, traceback.format_exc())
+#@bot.message_handler(commands=['combine'])
+#def combine(m):
+ #   if m.from_user.id==379168159:
+  #      try:
+   #         x1=int(m.text.split(' ')[1])
+    #        x2=int(m.text.split(' ')[2])
+     #       iduser.update_one({'id':x2},{'$inc':{'summ':iduser.find_one({'id':x1})['summ']}})
+      #      iduser.update_one({'id':x2},{'$inc':{'kolvo':iduser.find_one({'id':x1})['kolvo']}})
+       #     bot.send_message(x2, 'Перенёс данные со старого аккаунта на новый!')
+        #    bot.send_message(379168159, 'gotovo')
+        #except:
+         #   bot.send_message(379168159, traceback.format_exc())
 
 
 @bot.message_handler(commands=['add'])
@@ -109,15 +109,15 @@ def ends4et(id):
     
     
 
-@bot.message_handler(commands=['globalchlen'])
-def globalpeniss(m):
-    if m.from_user.id not in ban:
-        incmsg(m.from_user.id, m.chat.id, m.message_id)
-        penis.update_one({},{'$inc':{'penis':0.1}})
-        iduser.update_one({'id':m.from_user.id},{'$inc':{'penisincs':0.1}})
-        p=penis.find_one({})
-        ps=p['penis']
-        bot.send_message(m.chat.id, 'Вы увеличили мой член на 0.1 см! Текущая длина: '+str(round(ps,2))+' см!')
+#@bot.message_handler(commands=['globalchlen'])
+#def globalpeniss(m):
+ #   if m.from_user.id not in ban:
+  #      incmsg(m.from_user.id, m.chat.id, m.message_id)
+   #     penis.update_one({},{'$inc':{'penis':0.1}})
+    #    iduser.update_one({'id':m.from_user.id},{'$inc':{'penisincs':0.1}})
+     #   p=penis.find_one({})
+      #  ps=p['penis']
+       # bot.send_message(m.chat.id, 'Вы увеличили мой член на 0.1 см! Текущая длина: '+str(round(ps,2))+' см!')
         
 @bot.message_handler(commands=['id'])
 def iddd(m):
@@ -372,7 +372,7 @@ def usecoins(m):
     bot.send_message(m.chat.id, '@OvchiUz - bu yerda qurollar haqida ma`lumot olishingiz mumkin!')
     
     
-@bot.message_handler(commands=['mysize'])
+@bot.message_handler(commands=['hurmatim'])
 def size(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -434,45 +434,47 @@ def info(message):
         
 
 
-textss=['hurmatingiz - Qirollardek!', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
-      'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
-       'Член в астрале', 'Прислоните член к экрану, я не вижу', 'вы половой гигант!'
+textss=['Rost!', 'Yolg`on!', 'Bo`lishi mumkin',
+      'Rost 100%', 'Yolg`on 100%', 'Ishonmang aldayabdi!', 'G`irt yolg`on!',
+       'Bilmayman(', 'Bu inson rost so`zlayabdi)', 'Bu inson yolg`on so`zlayabdi)',
+       'Rost 1000%', 'Yolg`on 1000%', 'Men bot bo`lsam qayerdan bilay)',     
+   'Aka ishonmang bu yolg`onchiga', 'YOLG`ON derimku lekin buni aytayotgan inson yaxshi odamda)', 'O`zing o`ylab ko`r ;)',             
       ]
 
       
         
-@bot.message_handler(commands=['idd'])
+@bot.message_handler(commands=['rostmi'])
 def idddd(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     if m.reply_to_message!=None:
         user=m.reply_to_message.from_user
         text=random.choice(textss)        
-        bot.send_message(m.chat.id, text,reply_to_message_id=m.message_id,parse_mode='markdown')
+        bot.send_message(m.chat.id, '*'+ text +'*',reply_to_message_id=m.message_id,parse_mode='markdown')
     else:
         bot.send_message(m.chat.id, 'Gapni rost yoki yolg`onligi bilish uchun o`sha xatga reply qilib buyurug`qni yuboring.')
               
         
-@bot.message_handler(commands=['name'])
-def name(m):
-  if m.from_user.id not in ban:
-    incmsg(m.from_user.id, m.chat.id, m.message_id)
-    player=iduser.find_one({'id':m.from_user.id})
-    if player!=None:
-        x=m.text.split('/name ')
-        if len(x)==2:
-            if len(x[1])<=40:
-                try:
-                    iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
-                    bot.send_message(m.from_user.id, 'Вы успешно переименовали питомца!')
-                except:
-                    bot.send_message(m.from_user.id, 'У вас нет питомца!')          
-            else:
-                bot.send_message(m.from_user.id, 'Длина имени не должна превышать 40 символов!')
-        else:
-            bot.send_message(m.from_user.id, 'Неверный формат! Пишите в таком формате:\n'+'/name *имя*, где *имя* - имя вашего питомца.', parse_mode='markdown')
-    else:
-        bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
+#@bot.message_handler(commands=['name'])
+#def name(m):
+ # if m.from_user.id not in ban:
+  #  incmsg(m.from_user.id, m.chat.id, m.message_id)
+   # player=iduser.find_one({'id':m.from_user.id})
+    #if player!=None:
+     #   x=m.text.split('/name ')
+      #  if len(x)==2:
+       #     if len(x[1])<=40:
+        #        try:
+         #           iduser.update_one({'id':m.from_user.id}, {'$set':{'pet.name':x[1]}})
+          #          bot.send_message(m.from_user.id, 'Вы успешно переименовали питомца!')
+           #     except:
+            #        bot.send_message(m.from_user.id, 'У вас нет питомца!')          
+#            else:
+ #               bot.send_message(m.from_user.id, 'Длина имени не должна превышать 40 символов!')
+  #      else:
+   #         bot.send_message(m.from_user.id, 'Неверный формат! Пишите в таком формате:\n'+'/name *имя*, где *имя* - имя вашего питомца.', parse_mode='markdown')
+    #else:
+     #   bot.send_message(m.from_user.id, 'Сначала напишите боту "член" хотя бы один раз!')
             
         
         
@@ -483,37 +485,37 @@ def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdow
                                  parse_mode=parse_mode)
 
         
-@bot.message_handler(commands=['buypet'])
-def buypet(m):
-  if m.from_user.id not in ban:
-    incmsg(m.from_user.id, m.chat.id, m.message_id)
-    x=iduser.find_one({'id':m.from_user.id})
-    if x!=None:
-      if x['pet']==None:
-        if x['chlenocoins']>=5:
-            iduser.update_one({'id':m.from_user.id}, {'$set':{'pet':petcreate()}})
-            iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-5}})
-            bot.send_message(m.chat.id, 'Поздравляю, вы купили питомца! Подробнее об этом в /pethelp.')
-        else:
-            bot.send_message(m.chat.id, 'Не хватает членокоинов! (нужно 5)')
-      else:
-        bot.send_message(m.chat.id, 'У вас уже есть питомец!')
-    else:
-        bot.send_message(m.chat.id, 'Сначала напишите боту "член" хотя бы раз!')
+#@bot.message_handler(commands=['buypet'])
+#def buypet(m):
+ # if m.from_user.id not in ban:
+  #  incmsg(m.from_user.id, m.chat.id, m.message_id)
+   # x=iduser.find_one({'id':m.from_user.id})
+    #if x!=None:
+     # if x['pet']==None:
+      #  if x['chlenocoins']>=5:
+       #     iduser.update_one({'id':m.from_user.id}, {'$set':{'pet':petcreate()}})
+        #    iduser.update_one({'id':m.from_user.id}, {'$inc':{'chlenocoins':-5}})
+         #   bot.send_message(m.chat.id, 'Поздравляю, вы купили питомца! Подробнее об этом в /pethelp.')
+        #else:
+         #   bot.send_message(m.chat.id, 'Не хватает членокоинов! (нужно 5)')
+     # else:
+      #  bot.send_message(m.chat.id, 'У вас уже есть питомец!')
+    #else:
+     #   bot.send_message(m.chat.id, 'Сначала напишите боту "член" хотя бы раз!')
         
 
         
         
-@bot.message_handler(commands=['pethelp'])
-def pethelp(m):
-  if m.from_user.id not in ban:
-    incmsg(m.from_user.id, m.chat.id, m.message_id)
-    bot.send_message(m.chat.id, 'Питомец вам нужен для участия в боях. Чтобы поучаствовать, нужно написать боту в личные сообщения команду /fight.\n'+
-                     'У питомца есть ХП, Атака, Защита, Регенерация атаки, Регенерация защиты. '+
-                     'Каждый ход вы выбираете, сколько атаки и сколько защиты поставить на раунд... И ваш питомец сражается своим членом! Каждая поставленная единица защиты заблокирует единицу атаки соперника.\n'+
-                     'Таким образом, если вы ставите 2 атаки и 3 брони, а ваш соперник - 3 атаки и 1 броню, то вы получите 0 урона, а он получит 1 урон.\n'+
-                     'Прокачка питомца сейчас недоступна, но в будущем появится!'
-                    )
+#@bot.message_handler(commands=['pethelp'])
+#def pethelp(m):
+ # if m.from_user.id not in ban:
+  #  incmsg(m.from_user.id, m.chat.id, m.message_id)
+   # bot.send_message(m.chat.id, 'Питомец вам нужен для участия в боях. Чтобы поучаствовать, нужно написать боту в личные сообщения команду /fight.\n'+
+    #                 'У питомца есть ХП, Атака, Защита, Регенерация атаки, Регенерация защиты. '+
+     #                'Каждый ход вы выбираете, сколько атаки и сколько защиты поставить на раунд... И ваш питомец сражается своим членом! Каждая поставленная единица защиты заблокирует единицу атаки соперника.\n'+
+      #               'Таким образом, если вы ставите 2 атаки и 3 брони, а ваш соперник - 3 атаки и 1 броню, то вы получите 0 урона, а он получит 1 урон.\n'+
+       #              'Прокачка питомца сейчас недоступна, но в будущем появится!'
+        #            )
                              
                              
                              
@@ -536,9 +538,9 @@ def feedback(message):
         bot.send_message(message.chat.id, 'Xat yuborildi!')
 
 
-texts=['hurmatingiz - Qirollardek!', '5000км! Мужик!', '1 миллиметр... В стоячем состоянии',
-      'Ваши яйца поглотили член', 'Ваш член разбил мультивселенную', 'Член в минусе', 'Ваш писюн не даёт себя измерить',
-       'Член в астрале', 'Прислоните член к экрану, я не вижу', 'вы половой гигант!'
+texts=['hurmatingiz - Qirollardek!', 'hurmatingiz - Osmondek!', 'hurmatingiz - Bir tiyin!',
+      'hurmatingiz - Mahalla Kachogidek!', 'hurmatingiz - Alkashdek!', 'hurmatingiz - minusga qarab ketmoqda!', 'hurmatingiz - Nokia telefonidek!',
+       'hurmatingiz - Habib Nurmagamedovdek!', 'hurmatingiz - qandayligini tog`risi bilmayman!', 'hurmatingiz - Juda baland!!'
       ]
 
 def createchat(chatid):
@@ -615,7 +617,7 @@ def chlenomer(message):
             t=1
         if hyperultramega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':6}})
-            text='Ooo siz imkoni 0,01% bo`lgan ULTRA-SIRLI xatni topdingiz!'+"\n"+'Bu ohirgi bitta oldingi darajadagi sirlilik...\nShuningdek siz 6 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            text='Ooo siz imkoni 0,01% bo`lgan ULTRA-SIRLI xatni topdingiz!'+"\n"+'Bu ohirgidan bitta oldingi darajadagi sirlilik...\nShuningdek siz 6 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
             
         if win==1:
@@ -624,7 +626,7 @@ def chlenomer(message):
             t=1
         if t==1:
             try:
-              bot.send_message(message.chat.id, message.from_user.first_name+', '+text)
+              bot.send_message(message.chat.id, message.from_user.first_name+' '+text)
               t=0
             except:
               pass
