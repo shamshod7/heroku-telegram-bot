@@ -443,13 +443,9 @@ textss=['hurmatingiz - Qirollardek!', '5000км! Мужик!', '1 миллиме
 @bot.message_handler(commands=['ti_ctochlen'])
 def ticto(message):
   if message.from_user.id not in ban:
-    incmsg(message.from_user.id, message.chat.id, message.message_id)   
-        randomvoice>1:           
+    incmsg(message.from_user.id, message.chat.id, message.message_id)             
         texta=random.choice(textss)
-              t=1
-        if t==1:
-            try:
-              bot.send_message(message.chat.id, message.from_user.first_name+', '+texta)                
+        bot.send_message(message.chat.id, message.from_user.first_name+', '+texta)                
         
 @bot.message_handler(commands=['name'])
 def name(m):
