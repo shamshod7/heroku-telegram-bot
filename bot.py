@@ -340,7 +340,7 @@ def topchlen(m):
                         
                        
     
-@bot.message_handler(commands=['royhatga_yozilish])
+@bot.message_handler(commands=['royhatga_yozilish'])
 def dailyr(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
