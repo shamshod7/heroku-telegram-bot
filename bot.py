@@ -59,7 +59,7 @@ def adddsfdgeh(m):
         try:
             id=int(m.text.split(' ')[1])
             iduser.update_one({'id':id},{'$inc':{'chlenocoins':int(m.text.split(' ')[2])}})
-            bot.send_message(m.chat.id, "Olmoslar qo'shildi!")
+            bot.send_message(m.chat.id, "Olmoslar qo'shildi💎!")
         except:
             bot.send_message(379168159, traceback.format_exc())
             
@@ -238,7 +238,7 @@ def elit(m):
     #     except:
       #      pass
             
-@bot.message_handler(commands=['Kimzor'])
+@bot.message_handler(commands=['kimzor'])
 def biggest(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -389,15 +389,15 @@ def size(m):
         bot.send_message(m.chat.id, 'Oldin hurmat qozoning!')
                         
     
-    
+     
 @bot.message_handler(commands=['me'])
 def mme(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
     x=iduser.find_one({'id': m.from_user.id})
     try:
-     bot.send_message(m.chat.id, m.from_user.first_name+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")
-     bot.send_message(379168159, m.from_user.first_name+username+', Sizni olmoslariz: '+str(x['chlenocoins'])+". 10ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
+     bot.send_message(m.chat.id, '*'+m.from_user.first_name+' sizning olmoslaringiz💎: '+str(x['chlenocoins'])+". 6ta olmos yig'a olsangiz qurol olishingiz mumkin.*",parse_mode='markdown')
+     bot.send_message(379168159, m.from_user.first_name+' sizning olmoslaringiz: '+str(x['chlenocoins'])+". 6ta olmos yig'a olsangiz qurol olishingiz mumkin.")                                                                                                                                     
     except:
         bot.send_message(m.chat.id, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz! (Botga "@ovchiuz" deb yozing)')
         bot.send_message(379168159, 'Voyy! Qandaydir xatolik! Menimcha siz bir marta ham kanal nomini yozmagansiz!')                                                                                                                               
@@ -609,15 +609,15 @@ def chlenomer(message):
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
         if mega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':1}})
-            text='Tabriklaymiz! Siz imkoni 1% bo`lgan sirli xatni topdingiz!'+"\n"+'Yana boshqa imkoni bundada ham kam bo`lgan sirli xatlar ham mavjud. Ularni ham izlab ko`ring...\nShuningdek siz 1 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            text='Tabriklaymiz! Siz imkoni 1% bo`lgan sirli xatni topdingiz!'+"\n"+'Yana boshqa imkoni bundada ham kam bo`lgan sirli xatlar ham mavjud. Ularni ham izlab ko`ring...\nShuningdek siz 1 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
         if ultramega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':3}})
-            text='Siz imkoni 0,1% bo`lgan SUPER-SIRLI xatni topdingiz !'+"\n"+'Bu holi hammasi emas, bundanda sirliroq xatlar mavjud...\nShuningdek siz 3 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            text='Siz imkoni 0,1% bo`lgan SUPER-SIRLI xatni topdingiz !'+"\n"+'Bu holi hammasi emas, bundanda sirliroq xatlar mavjud...\nShuningdek siz 3 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
         if hyperultramega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':6}})
-            text='Ooo siz imkoni 0,01% bo`lgan ULTRA-SIRLI xatni topdingiz!'+"\n"+'Bu ohirgidan bitta oldingi darajadagi sirlilik...\nShuningdek siz 6 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            text='Ooo siz imkoni 0,01% bo`lgan ULTRA-SIRLI xatni topdingiz!'+"\n"+'Bu ohirgidan bitta oldingi darajadagi sirlilik...\nShuningdek siz 6 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
             
         if win==1:
