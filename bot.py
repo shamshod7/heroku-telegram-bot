@@ -238,7 +238,7 @@ def elit(m):
     #     except:
       #      pass
             
-@bot.message_handler(commands=['Musobaqani_boshlash'])
+@bot.message_handler(commands=['Kimzor'])
 def biggest(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -264,7 +264,7 @@ def biggest(m):
             bot.send_message(m.chat.id, 'Oldin guruhga nimadir deb yozing!')
         
 def turn2(id):
-    bot.send_message(id, 'Har bir odamni hurmatini tekshiryabman, qimirlamang...')
+    bot.send_message(id, 'Har bir odamni hurmatini baholayabman, qimirlamang...')
     t=threading.Timer(2, turn3, args=[id])
     t.start()
     
@@ -340,7 +340,7 @@ def topchlen(m):
                         
                        
     
-@bot.message_handler(commands=['royhatga_yozilish'])
+@bot.message_handler(commands=['menzor'])
 def dailyr(m):
   if m.from_user.id not in ban:
     incmsg(m.from_user.id, m.chat.id, m.message_id)
@@ -383,8 +383,8 @@ def size(m):
     except:
         sredn=0
     try:
-        bot.send_message(m.chat.id, m.from_user.first_name+', sizning hurmatingiz o`rtacha: '+str(sredn)+'.\nSiz '+str(x['kolvo'])+' marta hurmatga sazovor bo`lgansiz!') 
-        bot.send_message(379168159, m.from_user.first_name+', sizning hurmatingiz o`rtacha: '+str(sredn)+'.\nSiz '+str(x['kolvo'])+' marta hurmatga sazovor bo`lgansiz!')
+        bot.send_message(m.chat.id, m.from_user.first_name+', sizning hurmatingiz o`rtacha: '+str(sredn)+'😎.\nSiz '+str(x['kolvo'])+' marta hurmatga sazovor bo`lgansiz!') 
+        bot.send_message(379168159, m.from_user.first_name+', sizning hurmatingiz o`rtacha: '+str(sredn)+'😎.\nSiz '+str(x['kolvo'])+' marta hurmatga sazovor bo`lgansiz!')
     except:
         bot.send_message(m.chat.id, 'Oldin hurmat qozoning!')
                         
@@ -524,7 +524,7 @@ def medit(message_text,chat_id, message_id,reply_markup=None,parse_mode='Markdow
 def commessage(message):
   if message.from_user.id not in ban:
     incmsg(message.from_user.id, message.chat.id, message.message_id)
-    bot.send_message(message.chat.id, 'Buyuruqlar tez kunda tayyor bo`ladi!')
+    bot.send_message(message.chat.id, 'Barcha so`zlar @Jalilov_Shamshod tomonidan yaratilgan guruh va kanallar bilan bog`liq!')
         
 @bot.message_handler(commands=['feedback'])
 def feedback(message):
@@ -538,9 +538,9 @@ def feedback(message):
         bot.send_message(message.chat.id, 'Xat yuborildi!')
 
 
-texts=['hurmatingiz - *Qirollardek!*', 'hurmatingiz - *Osmondek!*', 'hurmatingiz - *Bir tiyin!*',
-      'hurmatingiz - *Mahalla oqsoqolidek!*', 'hurmatingiz - *Alkashdek!*', 'hurmatingiz - *minusga qarab ketmoqda!*', 'hurmatingiz - *Nokia telefonidek!*',
-       'hurmatingiz - *Habib Nurmagamedovdek!*', 'hurmatingiz - *qandayligini tog`risi bilmayman!*', 'hurmatingiz - *Juda baland!*'
+texts=['hurmatingiz - *Qirollardek👑!*', 'hurmatingiz - *Osmondek🌌!*', 'hurmatingiz - *Bir tiyin🤑!*',
+      'hurmatingiz - *Mahalla oqsoqolidek👴🏻!*', 'hurmatingiz - *Alkashdek🍺!*', 'hurmatingiz - *minusga qarab ketmoqda🥀!*', 'hurmatingiz - *Nokia telefonidek☎️!*',
+       'hurmatingiz - *Habib Nurmagamedovdek💂🏻!*', 'hurmatingiz - *qandayligini tog`risi bilmayman🤖!*', 'hurmatingiz - *Juda baland😲!*'
       ]
 
 def createchat(chatid):
@@ -602,8 +602,8 @@ def chlenomer(message):
               text=random.choice(texts)
               t=1
         else:
-            replytext=''+message.from_user.first_name+' sizning hurmatingiz: '+str(chlen)+','+str(mm)+'!'
-            bot.send_message(message.chat.id, replytext)
+            replytext='*'+message.from_user.first_name+'*'+' sizning hurmatingiz: *'+str(chlen)+','+str(mm)+'*😎!'
+            bot.send_message(message.chat.id, replytext,parse_mode='markdown')
             otvet=chlen+mm/10
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
