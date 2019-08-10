@@ -36,7 +36,7 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 writed=[
 ]
-massive=['@ovchiuz','@huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
+massive=['Хер','хер','Член','член','Хуй','хуй']
 elita=[]
 
 #@bot.message_handler(commands=['combine'])
