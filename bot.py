@@ -603,8 +603,8 @@ def chlenomer(message):
               text=random.choice(texts)
               t=1
         else:
-            replytext='*'+message.from_user.first_name+'*'+' sizning hurmatingiz: *'+str(chlen)+','+str(mm)+'*😎!'
-            bot.send_message(message.chat.id, replytext,parse_mode='markdown')
+            replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
+            bot.send_message(message.chat.id, replytext)
             otvet=chlen+mm/10
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
