@@ -36,7 +36,7 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 writed=[
 ]
-massive=['@ovchiuz','@huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
+massive=['@ovchiuz','@hunter','@huntuzbek','@jalilov_shamshod','@qopqon','@warsuz']
 elita=[]
 
 #@bot.message_handler(commands=['combine'])
@@ -582,7 +582,7 @@ def chlenomer(message):
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
-    spisok=['@ovchiuz','jalilov','@qopqon','@werewolfuz','@warsuz','@redwolfuz','assalomu aleykum','@jalilov_Shamshod','uzur','hayrli kun','Salom','Rahmat','@infowerewolfuz','zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
+    spisok=['@ovchiuz','jalilov','@qopqon','@werewolfuz','@warsuz','@redwolfuz','assalomu aleykum','@jalilov_Shamshod','uzur','hayrli kun','Salom','Rahmat','@infowerewolfuz','zor bot ekan','@qopqonuzb','turnir','qoidalar',
            '@varsuz', 'hush kebsiz']
     tr=0
     for ids in spisok:
