@@ -21,7 +21,6 @@ if pics.find_one({})==None:
     pics.insert_one({'pics':[]})
 
 ban=[667532060]
-timerr=0
 
 wait=[]
 ch=[]
@@ -37,7 +36,7 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 writed=[
 ]
-massive=['Хер','хер','Член','член','Хуй','хуй']
+massive=['@ovchiuz','@huntuzb','@huntuz','@jalilov_shamshod','@qopqon','@warsuz']
 elita=[]
 
 #@bot.message_handler(commands=['combine'])
@@ -583,8 +582,8 @@ def chlenomer(message):
         if iduser.find_one({'id':message.from_user.id}) is None:
             iduser.insert_one({'id':message.from_user.id, 'summ':0, 'kolvo':0, 'chlenocoins':0, 'pet':None, 'msgcount':0, 'penisincs':0})
                                           
-    spisok=['член','хер','хуй','залупа','пися','пись','пенис','хуе','хуё','хуя','елда','таежный прибор','таёжный прибор','пися','огурец','огурчик','чимчима',
-           'дроч', 'писю']
+    spisok=['@ovchiuz','jalilov','@qopqon','@werewolfuz','@warsuz','@redwolfuz','assalomu aleykum','@jalilov_Shamshod','uzur','hayrli kun','Salom','Rahmat','@infowerewolfuz','zor bot ekan','@qopqonuzb','@huntuzb','qoidalar',
+           '@varsuz', 'hush kebsiz']
     tr=0
     for ids in spisok:
         if ids in m.text.lower():
@@ -603,36 +602,34 @@ def chlenomer(message):
               text=random.choice(texts)
               t=1
         else:
-            replytext='Размер члена '+message.from_user.first_name+': '+str(chlen)+','+str(mm)+' см'
-            bot.send_message(message.chat.id, replytext)
+            replytext='*'+message.from_user.first_name+'*'+' sizning hurmatingiz: *'+str(chlen)+','+str(mm)+'*😎!'
+            bot.send_message(message.chat.id, replytext,parse_mode='markdown')
             otvet=chlen+mm/10
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'kolvo':1}})
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
         if mega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':1}})
-            text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...\nК тому же, вы получили 1 членокоин! Смотрите /me для проверки.'
+            text='Tabriklaymiz! Siz imkoni 1% bo`lgan sirli xatni topdingiz!'+"\n"+'Yana boshqa imkoni bundada ham kam bo`lgan sirli xatlar ham mavjud. Ularni ham izlab ko`ring...\nShuningdek siz 1 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
         if ultramega==1:
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':7}})
-            text='Вы нашли СУПЕР-СЕКРЕТНОЕ сообщение, шанс которого равен 0,1%!'+"\n"+'А ведь есть БОЛЕЕ секретные сообщения...\nК тому же, вы получили 7 членокоинов! Смотрите /me для проверки.'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':3}})
+            text='Siz imkoni 0,1% bo`lgan SUPER-SIRLI xatni topdingiz !'+"\n"+'Bu holi hammasi emas, bundanda sirliroq xatlar mavjud...\nShuningdek siz 3 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
         if hyperultramega==1:
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':15}})
-            text='Поздравляю, вы нашли УЛЬТРА секретное сообщение, шанс которого равен 0,01%!'+"\n"+'Это предпоследний уровень секретности...\nК тому же, вы получили 15 членокоинов! Смотрите /me для проверки.'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':6}})
+            text='Ooo siz imkoni 0,01% bo`lgan ULTRA-SIRLI xatni topdingiz!'+"\n"+'Bu ohirgidan bitta oldingi darajadagi sirlilik...\nShuningdek siz 6 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
             
         if win==1:
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':50}})
-            text='ВЫ ОЧЕНЬ ВЕЗУЧИЙ ЧЕЛОВЕК! Вы открыли САМОЕ СЕКРЕТНОЕ СООБЩЕНИЕ, шанс которого равен 0,001%!\nК тому же, вы получили 50 членокоинов! Смотрите /me для проверки.'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':9}})
+            text='SIZ JUDAYAM OMADLI INSON EKANSIZ! Siz imkoni 0,001% bo`lgan ENG SIRLI XATNI topdingiz!\nShuningdek siz 9 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
             t=1
         if t==1:
             try:
-              bot.send_message(message.chat.id, message.from_user.first_name+', '+text)
+              bot.send_message(message.chat.id, '*'+ message.from_user.first_name +'*'+' '+text,parse_mode='markdown')
               t=0
             except:
               pass
-        
-        
         
             
 def incmsg(id, chatid, mid):
@@ -709,6 +706,5 @@ def poll():
 
 
 poll()
-
 
 
