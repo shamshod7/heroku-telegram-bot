@@ -21,6 +21,7 @@ if pics.find_one({})==None:
     pics.insert_one({'pics':[]})
 
 ban=[667532060]
+timerr=0
 
 wait=[]
 ch=[]
@@ -561,7 +562,9 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
-  m=message    
+ global timerr
+ if timerr>=5:
+  m=message
   global msgcount
   global pods4et
   if pods4et==1:
@@ -610,27 +613,28 @@ def chlenomer(message):
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'summ':otvet}})
         if mega==1:
             iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':1}})
-            text='Tabriklaymiz! Siz imkoni 1% bo`lgan sirli xatni topdingiz!'+"\n"+'Yana boshqa imkoni bundada ham kam bo`lgan sirli xatlar ham mavjud. Ularni ham izlab ko`ring...\nShuningdek siz 1 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            text='Вы нашли секретное сообщение, шанс которого 1%!'+"\n"+'Есть еще секретные сообщения, шанс которых еще ниже...\nК тому же, вы получили 1 членокоин! Смотрите /me для проверки.'
             t=1
         if ultramega==1:
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':3}})
-            text='Siz imkoni 0,1% bo`lgan SUPER-SIRLI xatni topdingiz !'+"\n"+'Bu holi hammasi emas, bundanda sirliroq xatlar mavjud...\nShuningdek siz 3 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':7}})
+            text='Вы нашли СУПЕР-СЕКРЕТНОЕ сообщение, шанс которого равен 0,1%!'+"\n"+'А ведь есть БОЛЕЕ секретные сообщения...\nК тому же, вы получили 7 членокоинов! Смотрите /me для проверки.'
             t=1
         if hyperultramega==1:
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':6}})
-            text='Ooo siz imkoni 0,01% bo`lgan ULTRA-SIRLI xatni topdingiz!'+"\n"+'Bu ohirgidan bitta oldingi darajadagi sirlilik...\nShuningdek siz 6 olmos💎 oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':15}})
+            text='Поздравляю, вы нашли УЛЬТРА секретное сообщение, шанс которого равен 0,01%!'+"\n"+'Это предпоследний уровень секретности...\nК тому же, вы получили 15 членокоинов! Смотрите /me для проверки.'
             t=1
             
         if win==1:
-            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':9}})
-            text='SIZ JUDAYAM OMADLI INSON EKANSIZ! Siz imkoni 0,001% bo`lgan ENG SIRLI XATNI topdingiz!\nShuningdek siz 9 olmos oldingiz! Tekshirish uchun /me knopkasini bosing.'
+            iduser.update_one({'id':message.from_user.id}, {'$inc':{'chlenocoins':50}})
+            text='ВЫ ОЧЕНЬ ВЕЗУЧИЙ ЧЕЛОВЕК! Вы открыли САМОЕ СЕКРЕТНОЕ СООБЩЕНИЕ, шанс которого равен 0,001%!\nК тому же, вы получили 50 членокоинов! Смотрите /me для проверки.'
             t=1
         if t==1:
             try:
-              bot.send_message(message.chat.id, '*'+ message.from_user.first_name +'*'+' '+text,parse_mode='markdown')
+              bot.send_message(message.chat.id, message.from_user.first_name+', '+text)
               t=0
             except:
               pass
+        
         
             
 def incmsg(id, chatid, mid):
