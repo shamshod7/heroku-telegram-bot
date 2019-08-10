@@ -561,6 +561,7 @@ def createdailyuser(id, name,username):
 
 @bot.message_handler(content_types=['text'])
 def chlenomer(message):
+  m=message    
   global msgcount
   global pods4et
   if pods4et==1:
